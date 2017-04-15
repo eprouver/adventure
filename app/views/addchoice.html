@@ -1,0 +1,19 @@
+<div class="animated slideInRight">
+    <h1>Add Choice</h1>
+    <br/>
+    <form class="form" ng-submit="addChoice()">
+        <div class="form-group">
+            <label>Choice Text:</label>
+            <input required ng-model="action" class="form-control" type="text" />
+        </div>
+        <br/>
+        <div class="form-group">
+            <label>Next Page Text:</label>
+            <p class="pull-right"><i>What happens now?</i></p>
+            <textarea required ng-model="text" class="form-control" rows="10"></textarea>
+        </div>
+        <button ng-disabled="sending" type="submit" class="btn btn-lg btn-success btn-block">
+            Add Choice
+        </button>
+    </form>
+</div>
