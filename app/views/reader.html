@@ -1,40 +1,46 @@
 <div>
     <div class="row">
-        <div ng-class="{'col-xs-12': !rCtrl.adding, 'col-xs-8': rCtrl.adding}">
+        <div ng-class="{'col-xs-12': !rCtrl.adding, 'col-sm-8': rCtrl.adding}">
             <div id="reader">
                 <div class="">
                     <div id="o" class="alert alert-info animated">&nbsp;</div>
                 </div>
-                <div id="options" class="spacer" ng-if="rCtrl.choosing">
+                <div id="options"  ng-if="rCtrl.choosing">
                     <div ng-show="!rCtrl.adding">
-                        <div class="text-center">
-                            <button class="btn btn-success" ng-click="p()">Read Again</button>
-                        </div>
                         <br/>
                         <div class="row" ng-if="page.choices">
-                            <div class="col-xs-6 animated rotateInUpLeft option-holder">
-                                <a href="/page/{{c.id}}" class="btn btn-lg btn-block btn-info" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 == 0"> {{c.action}} </a>
+                            <div class="col-xs-6 animated slideInLeft option-holder">
+                                <a href="/#!/page/{{c.id}}" class="btn btn-lg btn-block btn-info" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 != 0"> {{c.action}} </a>
                             </div>
-                            <div class="col-xs-6 animated rotateInDownRight option-holder">
-                                <a href="/page/{{c.id}}" class="btn btn-lg btn-block btn-info" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 != 0"> {{c.action}} </a>
+                            <div class="col-xs-6 animated slideInRight option-holder">
+                                <a href="/#!/page/{{c.id}}" class="btn btn-lg btn-block btn-info" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 == 0"> {{c.action}} </a>
                             </div>
                         </div>
+                        <div ng-if="!page.choices.length">
+                            <h2>The Story Ends Here&hellip;</h2>
+                        </div>
                     </div>
-                    <div class="spacer" ng-show="rCtrl.adding">
+                    <div ng-show="rCtrl.adding">
                         <h5>Current Page:</h5>
                         <h4>{{page.text}}</h4>
                     </div>
                     <br/>
                     <br/>
-                    <div ng-class="{'pull-right': page.choices.length}">
+                    <div class="animated fadeIn">
+                    <div class="pull-left">
+                        <button class="btn btn-primary" ng-click="p()">Read Again</button>
+                    </div>
+                    <div class="pull-right">
                         <div class="btn btn-warning" ng-class="{'btn-lg btn-block': page.choices.length == 0}" ng-click="rCtrl.adding = !rCtrl.adding">
                             <span ng-if="rCtrl.adding">Hide New </span><span ng-if="!rCtrl.adding">Add </span> Choice
                         </div>
                     </div>
                 </div>
+                    <div style="clear:both"></div>
+                </div>
             </div>
         </div>
-        <div ng-show="rCtrl.adding" class="col-xs-4">
+        <div ng-show="rCtrl.adding" class="col-sm-4">
             <add-choice></add-choice>
         </div>
     </div>
