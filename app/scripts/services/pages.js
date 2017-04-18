@@ -20,6 +20,10 @@ angular.module('adventureApp')
             // }
         };
 
+        firebase.database().ref('pages').on('value', function(res){
+            debugger
+        })
+
         function fakePage(id, choices) {
             return $http.get('http://www.randomtext.me/api/gibberish/p-1/15-25').then(function(res) {
                 if (choices) {
@@ -48,13 +52,20 @@ angular.module('adventureApp')
         }
 
         return {
-            submitPage: function(parent, action, text) {
+            newStory: function(){
+                 var defer = $q.defer();
+                    
+                defer.resolve(_.guid());       
+                return defer.promise;    
+            },
+            submitPage: function(story, parent, action, text) {
                 var defer = $q.defer();
 
                 setTimeout(function() {
                     var page = {
-                        id: _.guid(),
+                        id: parent ? _.guid() : story,
                         parent: parent,
+                        story: story,
                         action: action,
                         text: text,
                         choices: []
@@ -62,7 +73,12 @@ angular.module('adventureApp')
 
                     firebase.database().ref('pages/' + page.id).set(page);
 
-                    loadedPages[parent].choices.push(page);
+                    //$http.put('https://adventure-b908e.firebaseio.com/rest/saving-data/fireblog/pages.json', page)
+
+                    if(parent){
+                        loadedPages[parent].choices.push(page);
+                    }
+                    
                     loadedPages[page.id] = page;
 
                     defer.resolve(page);

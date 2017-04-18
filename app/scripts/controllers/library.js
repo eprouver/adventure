@@ -8,10 +8,6 @@
  * Controller of the adventureApp
  */
 angular.module('adventureApp')
-  .controller('LibraryCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('LibraryCtrl', ['$scope', function ($scope) {
+  	
+  }]);

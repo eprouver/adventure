@@ -1,15 +1,17 @@
 <div class="animated slideInRight">
-    <h1>Add Choice</h1>
+    <h1 ng-if="!story">Add Choice</h1>
+    <h1 ng-if="story">New Story</h1>
     <br/>
     <form class="form" ng-submit="addChoice()">
         <div class="form-group">
-            <label>Choice Text:</label>
+            <label ng-if="!story">Choice Text</label>
+            <label ng-if="story">Title</label>
             <input required ng-model="action" class="form-control" type="text" />
         </div>
         <br/>
         <div class="form-group">
-            <label>Next Page Text:</label>
-            <p class="pull-right"><i>What happens now?</i></p>
+            <label ng-if="!story">Next Page</label>
+            <label ng-if="story">First Page</label>
             <textarea required ng-model="text" class="form-control" rows="10"></textarea>
         </div>
         <button ng-disabled="sending" type="submit" class="btn btn-lg btn-success btn-block">
