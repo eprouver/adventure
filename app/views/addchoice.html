@@ -1,21 +1,31 @@
-<div class="animated slideInRight">
-    <h1 ng-if="!story">Add Choice</h1>
-    <h1 ng-if="story">New Story</h1>
-    <br/>
-    <form class="form" ng-submit="addChoice()">
-        <div class="form-group">
-            <label ng-if="!story">Choice Text</label>
-            <label ng-if="story">Title</label>
-            <input required ng-model="action" class="form-control" type="text" />
-        </div>
+<div id="add-choice">
+    <div ng-if="user.loaded">
+        <h1 ng-if="!story">Add Choice</h1>
+        <h1 ng-if="story">New Story</h1>
         <br/>
-        <div class="form-group">
-            <label ng-if="!story">Next Page</label>
-            <label ng-if="story">First Page</label>
-            <textarea required ng-model="text" class="form-control" rows="10"></textarea>
-        </div>
-        <button ng-disabled="sending" type="submit" class="btn btn-lg btn-success btn-block">
-            Add Choice
-        </button>
-    </form>
+        <form class="form" ng-submit="addChoice()">
+            <div class="form-group">
+                <label class="pull-right" ng-class="{'text-info': acCtrl.action.length < params.maxTitle, 'text-warning': acCtrl.action.length == params.maxTitle, 'hide': !acCtrl.action.length}">{{acCtrl.action.length || 0}} / {{params.maxTitle}}</label>
+                <label ng-if="!story">Choice Text</label>
+                <label ng-if="story">Title</label>
+                <input required ng-model="acCtrl.action" class="form-control" type="text" ng-trim="false" ng-maxlength="params.maxTitle" />
+            </div>
+            <br/>
+            <div class="form-group">
+                <label class="pull-right" ng-class="{'text-info': acCtrl.text.length < params.maxPage, 'text-warning': acCtrl.text.length == params.maxPage, 'hide': !acCtrl.text.length}">{{acCtrl.text.length || 0}} / {{params.maxPage}}</label>
+                <label ng-if="!story">Next Page</label>
+                <label ng-if="story">First Page</label>
+                <textarea required ng-model="acCtrl.text" class="form-control" rows="10" ng-maxlength="params.maxPage"></textarea>
+            </div>
+            <br/>
+            <button ng-disabled="sending" type="submit" class="btn btn-lg btn-success btn-block">
+                <i class="fa fa-plus button-icon" aria-hidden="true"></i>
+               Add Choice
+            </button>
+        </form>
+    </div>
+    <div ng-if="!user.loaded">
+        <h3>Identify Yourself:</h3>
+        <div id="firebaseui-auth-container"></div>
+    </div>
 </div>

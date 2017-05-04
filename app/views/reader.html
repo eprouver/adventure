@@ -1,47 +1,65 @@
 <div>
     <div class="row">
         <div ng-class="{'col-xs-12': !rCtrl.adding, 'col-sm-8': rCtrl.adding}">
-            <div id="reader">
-                <div class="">
-                    <div id="o" class="alert alert-info animated">&nbsp;</div>
+            <div id="reader" class="animated zoomIn">
+                <div id="o-parent">
+                    <div id="o" class="animated">&nbsp;</div>
+                    <br/>
+                    <br/>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-primary" ng-style="{width: progress + '%'}"></div>
+                    </div>
                 </div>
-                <div id="options"  ng-if="rCtrl.choosing">
-                    <div ng-show="!rCtrl.adding">
+                <div id="options" ng-if="rCtrl.choosing">
+                    <div ng-if="!rCtrl.adding">
+                        <div ng-if="page.choices.length">
+                            <h2>What will you do?</h2>
+                        </div>
                         <br/>
                         <div class="row" ng-if="page.choices">
                             <div class="col-xs-6 animated slideInLeft option-holder">
-                                <a href="/#!/page/{{c.id}}" class="btn btn-lg btn-block btn-info" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 != 0"> {{c.action}} </a>
+                                <a href="/#!/page/{{c.id}}" class="btn btn-lg btn-block btn-success" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 != 0"> {{c.action}} </a>
                             </div>
                             <div class="col-xs-6 animated slideInRight option-holder">
-                                <a href="/#!/page/{{c.id}}" class="btn btn-lg btn-block btn-info" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 == 0"> {{c.action}} </a>
+                                <a href="/#!/page/{{c.id}}" class="btn btn-lg btn-block btn-success" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 == 0"> {{c.action}} </a>
                             </div>
                         </div>
                         <div ng-if="!page.choices.length">
                             <h2>The Story Ends Here&hellip;</h2>
                         </div>
                     </div>
-                    <div ng-show="rCtrl.adding">
-                        <h5>Current Page:</h5>
-                        <h4>{{page.text}}</h4>
+                    <div ng-if="rCtrl.adding">
+                        <div class="animated slideInLeft">
+                            <h5>Current Page:</h5>
+                            <h4>{{page.text}}</h4>
+                        </div>
                     </div>
                     <br/>
                     <br/>
                     <div class="animated fadeIn">
-                    <div class="pull-left">
-                        <button class="btn btn-primary" ng-click="p()">Read Again</button>
-                    </div>
-                    <div class="pull-right">
-                        <div class="btn btn-warning" ng-class="{'btn-lg btn-block': page.choices.length == 0}" ng-click="rCtrl.adding = !rCtrl.adding">
-                            <span ng-if="rCtrl.adding">Hide New </span><span ng-if="!rCtrl.adding">Add </span> Choice
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button class="btn btn-primary btn-block" ng-click="p()">
+                                    <i class="fa fa-repeat button-icon" aria-hidden="true"></i>Read Again</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="btn btn-info btn-block" ng-class="{'btn-warning': rCtrl.adding}" ng-click="rCtrl.adding = !rCtrl.adding">
+                                    <span ng-if="rCtrl.adding">
+                                    <i class="fa fa-ban button-icon" aria-hidden="true"></i>
+                                    Hide New </span>
+                                    <span ng-if="!rCtrl.adding">
+                                        <i class="fa fa-pencil button-icon" aria-hidden="true"></i>
+                                    Add </span> Choice
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                     <div style="clear:both"></div>
                 </div>
             </div>
         </div>
         <div ng-show="rCtrl.adding" class="col-sm-4">
-            <add-choice></add-choice>
+            <add-choice class="animated slideInRight"></add-choice>
         </div>
     </div>
 </div>

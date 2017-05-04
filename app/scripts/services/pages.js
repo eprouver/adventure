@@ -8,21 +8,36 @@
  * Service in the adventureApp.
  */
 angular.module('adventureApp')
-    .service('pages', ['$http', '$q', function($http, $q) {
+    .service('pages', ['$http', '$q', '$rootScope', 'user', function($http, $q, $rootScope, user) {
         var database = firebase.database();
-        var loadedPages = {
-            // 0: {
-            //     id: 0,
-            //     loaded: true,
-            //     text: 'I start a new story',
-            //     action: 'Choose Me',
-            //     choices: []
-            // }
-        };
+        var loadedPages = {};
 
-        firebase.database().ref('pages').on('value', function(res){
-            debugger
-        })
+        var sanitizePages = function(pages) {
+            _(pages).forEach(function(v) {
+                if (!v.hasOwnProperty('choices')) {
+                    v.choices = [];
+                }
+
+                if (loadedPages[v.id]) {
+                    for (var key in v) {
+                        loadedPages[v.id][key] = v[key]
+                    }
+                } else {
+                    loadedPages[v.id] = v;
+                }
+            });
+
+        }
+
+        function init() {
+            firebase.database().ref('pages').orderByChild('parent').equalTo(null).on('value', _.debounce(function(res) {
+                sanitizePages(res.val());
+                $rootScope.$broadcast('pages:updated');
+            }, 500))
+        }
+
+        $rootScope.$on('user:updated', init);
+        init();
 
         function fakePage(id, choices) {
             return $http.get('http://www.randomtext.me/api/gibberish/p-1/15-25').then(function(res) {
@@ -37,9 +52,6 @@ angular.module('adventureApp')
                         text: res.data.text_out.replace(/(<([^>]+)>)/ig, ""),
                         action: 'Action: + ' + id,
                         choices: []
-                            // choices: _.map(new Array(4), function() {
-                            // 	  return ~~(Math.random() * 20);
-                            // })
                     }
                 } else {
                     return {
@@ -52,11 +64,29 @@ angular.module('adventureApp')
         }
 
         return {
-            newStory: function(){
-                 var defer = $q.defer();
-                    
-                defer.resolve(_.guid());       
-                return defer.promise;    
+            newStory: function() {
+                var defer = $q.defer();
+
+                defer.resolve(_.guid());
+                return defer.promise;
+            },
+            getStories: function() {
+                return _(loadedPages).toArray().filter(function(v) {
+                    return !v.parent;
+                })
+            },
+            incrementViewCount: function(pageId) {
+                //Increment viewCount;
+                var databaseRef = database.ref('pages').child(pageId).child('viewCount');
+
+                databaseRef.transaction(function(viewCount) {
+
+                    if (!viewCount) viewCount = 0;
+
+                    viewCount = viewCount + 1;
+
+                    return viewCount;
+                });
             },
             submitPage: function(story, parent, action, text) {
                 var defer = $q.defer();
@@ -68,17 +98,43 @@ angular.module('adventureApp')
                         story: story,
                         action: action,
                         text: text,
+                        viewCount: 0,
+                        author: user.getData().uid,
+                        creationDate: new Date().getTime(),
                         choices: []
                     };
 
+                    if (story == page.id) {
+                        page.bookSize = 1;
+                    }
+
                     firebase.database().ref('pages/' + page.id).set(page);
 
-                    //$http.put('https://adventure-b908e.firebaseio.com/rest/saving-data/fireblog/pages.json', page)
+                    if (parent) {
 
-                    if(parent){
                         loadedPages[parent].choices.push(page);
+                        var transfer = angular.copy(loadedPages[parent]);
+                        transfer.choices = transfer.choices.map(function(v) {
+                            return {
+                                id: v.id,
+                                action: v.action
+                            }
+                        })
+                        firebase.database().ref('pages/' + parent).set(transfer);
+
+                        //Increment parent book size;
+                        var databaseRef = database.ref('pages').child(page.story).child('bookSize');
+
+                        databaseRef.transaction(function(bookSize) {
+
+                            if (!bookSize) { bookSize = 1; }
+                            bookSize += 1;
+
+                            return bookSize;
+                        });
                     }
-                    
+
+
                     loadedPages[page.id] = page;
 
                     defer.resolve(page);
@@ -91,20 +147,24 @@ angular.module('adventureApp')
                 var self = this;
                 var defer = $q.defer();
 
-                    if (loadedPages[n]) {
+                if (loadedPages[n]) {
+                    defer.resolve(loadedPages[n]);
+                } else {
+                    // fakePage(n, true).then(function(res) {
+                    //     loadedPages[n] = res;
+                    //     defer.resolve(loadedPages[n]);
+                    // })
+
+                    var page = firebase.database().ref('pages/' + n);
+                    page.on('value', function(snapshot) {
+                        loadedPages[n] = snapshot.val();
+                        if (!loadedPages[n].choices) {
+                            loadedPages[n].choices = [];
+                        }
                         defer.resolve(loadedPages[n]);
-                    } else {
-                        // fakePage(n, true).then(function(res) {
-                        //     loadedPages[n] = res;
-                        //     defer.resolve(loadedPages[n]);
-                        // })
+                    });
 
-                	var page = firebase.database().ref('pages/' + n);
-                	page.on('value', function(snapshot) {
-                		debugger;
-                	});
-
-                    }
+                }
 
                 return defer.promise;
 

@@ -1,17 +1,46 @@
-<div class="row">
-    <div ng-class="{'col-xs-12': !writting, 'col-xs-6': writting}">
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="n in [1,2,3,4,5,6]">
-                <a href="/#!/page/0"><div class="well"> Story with a long title because that's very possible</div></a>
-                <br/>
+<div class="row ">
+    <div class="holder-3d" ng-class="{'col-xs-12': !library.writing, 'col-xs-6': library.writing}">
+        <div class="transition-all" ng-class="{'left-door': library.writing}">
+            <div>
+                <h1><span class="fa fa-book"></span> Library</h1>
+            </div>
+            <div ng-if="stories.length">
+                <a ng-href="/#!/page/{{story.id}}" ng-repeat="story in stories">
+                    <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
+                        <div class="title">{{story.action}}</div>
+                        <br/>
+                        <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
+                            Reads: {{story.viewCount}}
+                        </div>
+                        <div ng-if="story.bookSize != undefined" class="label label-default label-choices">
+                            Choices: {{story.bookSize}}
+                        </div>
+                        <div class="curtain" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
+                        <div class="curtain curtain-after" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
+                    </div>
+                </a>
+            </div>
+            <br/>
+            <div ng-if="!stories.length">
+                <h2 class="text-muted">Loading&hellip;</h2>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-6">&nbsp;</div>
+            <div class="col-xs-6">
+                    <div class="btn btn-info btn-block" ng-class="{'btn-warning': library.writing}" ng-if="stories.length" ng-click="library.writing = !library.writing">
+            <span ng-show="library.writing">
+                <i class="fa fa-ban button-icon" aria-hidden="true"></i>
+                Hide</span>
+<span ng-show="!library.writing">
+                <i class="fa fa-pencil button-icon" aria-hidden="true"></i>
+                </span>
+                New Story</div>
+            </div>
+        </div>
+
     </div>
-    <div ng-class="{'hide': !writting, 'col-xs-6': writting}">
-        <add-choice data-story="true"></add-choice>
+    <div class="col-xs-6" ng-if="library.writing">
+        <add-choice data-story="true" class="animated slideInRight"></add-choice>
     </div>
-</div>
-<div>
-    <div class="btn btn-success" ng-click="writting = !writting">New Story</div>
 </div>

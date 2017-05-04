@@ -9,13 +9,15 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
     <link rel="stylesheet" href="bower_components/firebaseui/dist/firebaseui.css" />
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <link href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace" rel="stylesheet">
 </head>
 
 <body ng-app="adventureApp">
@@ -46,6 +48,7 @@
         </div>
     </div>
     <div class="container">
+        <br/>
         <div ng-view=""></div>
     </div>
     <div class="footer hide">
@@ -53,8 +56,9 @@
             <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
         </div>
     </div>
-    <div id="firebaseui-auth-container"></div>
-    
+<!--     <div class="hide">
+        <div id="firebaseui-auth-container"></div>
+    </div> -->
     <script src="https://www.gstatic.com/firebasejs/3.7.8/firebase.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -81,16 +85,6 @@
     <script src="bower_components/firebaseui/dist/firebaseui.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/about.js"></script>
-    <script src="scripts/directives/reader.js"></script>
-    <script src="scripts/controllers/story.js"></script>
-    <script src="scripts/directives/addchoice.js"></script>
-    <script src="scripts/services/pages.js"></script>
-    <script src="scripts/controllers/library.js"></script>
-    <!-- endbuild -->
     <script type="text/javascript">
     // Initialize Firebase
     var config = {
@@ -102,37 +96,18 @@
         messagingSenderId: "724982399816"
     };
     firebase.initializeApp(config);
-
-    // FirebaseUI config.
-    var uiConfig = {
-        signInSuccessUrl: 'http://localhost:9000/#!/library',
-        signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-            firebase.auth.GithubAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID
-        ],
-        signInFlow: 'popup',
-        // Terms of service url.
-        tosUrl: '<your-tos-url>',
-                callbacks: {
-          signInSuccess: function(currentUser, credential, redirectUrl) {
-            document.getElementById('firebaseui-auth-container').style.display = 'none';
-            return true;
-          }
-        }
-    };
-
-    // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
     </script>
-
-
-
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/directives/reader.js"></script>
+    <script src="scripts/controllers/story.js"></script>
+    <script src="scripts/directives/addchoice.js"></script>
+    <script src="scripts/services/pages.js"></script>
+    <script src="scripts/controllers/library.js"></script>
+    <script src="scripts/services/user.js"></script>
+    <!-- endbuild -->
 </body>
 
 </html>

@@ -7,20 +7,38 @@
  * # addChoice
  */
 angular.module('adventureApp')
-    .directive('addChoice', ['pages', function(pages) {
+    .directive('addChoice', ['$rootScope', 'pages', 'user', function($rootScope, pages, user) {
         return {
             templateUrl: 'views/addchoice.html',
             replace: true,
             restrict: 'E',
+            controllerAs: 'acCtrl',
             controller: ['$scope', '$attrs', function($scope, $attrs) {
+                var self = this;
                 $scope.story = $attrs.story;
+                $scope.user = user.getData();
+                $scope.params = {
+                    maxTitle: 100,
+                    maxPage: 520
+                }
+
+                $scope.$on('user:updated', function(){
+                    $scope.user = user.getData();
+                    if(!$scope.$$phase){
+                        $scope.$apply();
+                    }
+                })
+
+                if(!$scope.user.loaded){
+                    setTimeout(user.showButtons, 100);
+                }
 
                 function submitPage(story, parent){
-                    pages.submitPage(story, parent, $scope.action, $scope.text).then(function(res) {
+                    return pages.submitPage(story, parent, self.action, self.text).then(function(res) {
                         if($scope.rCtrl){
                             $scope.rCtrl.adding = false;
                         }
-                        $scope.action = $scope.text = undefined;
+                        self.action = self.text = undefined;
                         $scope.sending = false;
                     })                    
                 }
@@ -33,14 +51,17 @@ angular.module('adventureApp')
                         var parent = null;
                     }
 
-                    if($scope.story){
-                        pages.newStory().then(function(story){
-                            submitPage(story, parent);
-                        })
-                    }else{
-                        submitPage($scope.main.story, parent);
+                    var choiceSuccess = function(){
+                        $rootScope.$broadcast('addChoice:success')
                     }
 
+                    if($scope.story){
+                        pages.newStory().then(function(story){
+                            submitPage(story, parent).then(choiceSuccess);
+                        })
+                    }else{
+                        submitPage($scope.page.story, parent).then(choiceSuccess);
+                    }
 
                 }
             }]

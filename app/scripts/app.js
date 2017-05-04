@@ -33,7 +33,10 @@ angular
             .otherwise({
                 redirectTo: '/library'
             });
-    });
+    })
+    .run(['user', function(user){
+        user.start();
+    }])
 
     _.mixin({
         guid : function(){
