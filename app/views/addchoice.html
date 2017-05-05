@@ -13,7 +13,7 @@
             <br/>
             <div class="form-group">
                 <label class="pull-right" ng-class="{'text-info': acCtrl.text.length < params.maxPage, 'text-warning': acCtrl.text.length == params.maxPage, 'hide': !acCtrl.text.length}">{{acCtrl.text.length || 0}} / {{params.maxPage}}</label>
-                <label ng-if="!story">Next Page</label>
+                <label ng-if="!story">What Happens Next?</label>
                 <label ng-if="story">First Page</label>
                 <textarea required ng-model="acCtrl.text" class="form-control" rows="10" ng-maxlength="params.maxPage"></textarea>
             </div>
@@ -23,8 +23,10 @@
                Add Choice
             </button>
         </form>
+        <br/><br/><br/><br/><br/><br/><br/><br/>
     </div>
     <div ng-if="!user.loaded">
+        <br/>
         <h3>Identify Yourself:</h3>
         <div id="firebaseui-auth-container"></div>
     </div>

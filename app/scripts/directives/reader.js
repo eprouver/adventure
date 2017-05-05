@@ -5,7 +5,7 @@
  * # reader
  */
 angular.module('adventureApp')
-    .directive('reader', ['pages', function(pages) {
+    .directive('reader', ['$rootScope', 'pages', 'localStorageService', function($rootScope, pages, localStorageService) {
         return {
             templateUrl: 'views/reader.html',
             replace: true,
@@ -15,6 +15,23 @@ angular.module('adventureApp')
                 var playing, index, loop, parse, focus, hyphenate, str, words;
                 var o = $element.find('#o')[0];
                 var self = this;
+
+                self.params ={
+                    choiceLimit: 8
+                }
+
+                self.bookmark = localStorageService.get('bookmark');
+                self.addBookmark = function(remove){
+                    if(remove){
+                        self.bookmark = null;
+                        localStorageService.set('bookmark', null);
+                        $rootScope.$broadcast('feedback:bookmark-removed');
+                        return;
+                    }
+                    self.bookmark = $scope.page.id;
+                    localStorageService.set('bookmark', self.bookmark);
+                    $rootScope.$broadcast('feedback:bookmark-added');
+                }
 
                 $scope.progress = 0;
 
@@ -49,7 +66,7 @@ angular.module('adventureApp')
                                     break
                                 }
 
-                            var t = 60000 / 500 // 500 wpm
+                            var t = 60000 / 600 // 500 wpm
 
                             if (str.length > 6)
                                 t += t / 4
@@ -109,6 +126,7 @@ angular.module('adventureApp')
                 }
 
                 $scope.$on('addChoice:success', loadPage);
+                $scope.$on('pages:updated', loadPage);
                 loadPage().then($scope.p);
 
             }]

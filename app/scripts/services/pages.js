@@ -8,7 +8,7 @@
  * Service in the adventureApp.
  */
 angular.module('adventureApp')
-    .service('pages', ['$http', '$q', '$rootScope', 'user', function($http, $q, $rootScope, user) {
+    .service('pages', ['$http', '$q', '$rootScope', 'user', 'localStorageService', function($http, $q, $rootScope, user, localStorageService) {
         var database = firebase.database();
         var loadedPages = {};
 
@@ -91,6 +91,18 @@ angular.module('adventureApp')
                 })
             },
             incrementViewCount: function(pageId) {
+                var pagesRead = localStorageService.get('pagesRead');
+                if (!pagesRead) {
+                    pagesRead = [];
+                }
+
+                if (pagesRead.indexOf(pageId)) {
+                    return;
+                }
+
+                pagesRead.push(pageId);
+                localStorageService.set('pagesRead', pagesRead.slice(0,50));
+
                 //Increment viewCount;
                 var databaseRef = database.ref('pages').child(pageId).child('viewCount');
 
@@ -155,7 +167,6 @@ angular.module('adventureApp')
 
                 defer.resolve(page);
 
-
                 return defer.promise;
 
             },
@@ -177,6 +188,7 @@ angular.module('adventureApp')
                         if (!loadedPages[n].choices) {
                             loadedPages[n].choices = [];
                         }
+                        $rootScope.$broadcast('pages:updated');
                         defer.resolve(loadedPages[n]);
                     });
 

@@ -16,7 +16,6 @@ angular.module('adventureApp')
 
         // FirebaseUI config.
         var uiConfig = {
-            signInSuccessUrl: 'http://localhost:9000/#!/library',
             signInOptions: [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -31,6 +30,9 @@ angular.module('adventureApp')
             callbacks: {
                 signInSuccess: function(currentUser, credential, redirectUrl) {
                     document.getElementById('firebaseui-auth-container').style.display = 'none';
+                    setTimeout(function(){
+                        $rootScope.$broadcast('user:updated');
+                    }, 3000);
                     return true;
                 }
             }

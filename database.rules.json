@@ -1,6 +1,13 @@
 {
-  "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
-  }
+    "rules": {
+        ".read": true,
+        ".write": "auth != null",
+        "pages": {
+            ".indexOn": "id",
+            "$viewCount": {
+                ".read": true,
+                ".write": true
+            }
+        }
+    }
 }

@@ -1,14 +1,38 @@
-<div class="row ">
+<div class="row">
     <div class="holder-3d" ng-class="{'col-xs-12': !library.writing, 'col-xs-6': library.writing}" ng-click="library.writing = false">
         <div class="transition-all" ng-class="{'left-door': library.writing}">
-            <div>
-                <h1><span class="fa fa-book"></span> Library</h1>
+            <div class="animated slideInDown" ng-if="library.bookmark">
+                <h2>
+            <div class="text-danger pull-right" ng-click="removeBookmark(); $event.stopPropagation()">
+                <i class="fa fa-trash"></i>
             </div>
+
+        <i class="fa fa-bookmark"></i> 
+        Bookmark:</h2>
+                <a ng-href="/#!/page/{{library.bookmark.id}}">
+                    <div class="story-card">
+                        <div class="title">{{library.bookmark.action}}</div>
+                        <p>From: {{library.bookmark.story.action}}</p>
+                        <div ng-if="library.bookmark.viewCount != undefined" class="label label-default label-reads">
+                            Reads: {{library.bookmark.viewCount}}
+                        </div>
+                        <div ng-if="library.bookmark.story.bookSize != undefined" class="label label-default label-choices">
+                            Choices: {{library.bookmark.story.bookSize}}
+                        </div>
+                        <div class="curtain"></div>
+                        <div class="curtain curtain-after"></div>
+                    </div>
+                </a>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+            <h1><span class="fa fa-book"></span> Library</h1>
             <div ng-if="stories.length">
+                <br/>
+                <br/>
+                <h3> Popular </h3>
                 <div class="row">
-                    <br/>
-                    <br/>
-                    <h3> Popular </h3>
                     <div class="col-md-6">
                         <div ng-repeat="story in popularStories = (stories | orderBy:'viewCount':true | limitTo:params.sectionLength)" ng-class="{'hidden-md hidden-lg': (($index % 2) == 1)}">
                             <a ng-href="/#!/page/{{story.id}}">
@@ -46,10 +70,10 @@
                         </div>
                     </div>
                 </div>
+                <br/>
+                <br/>
+                <h3> New Stories </h3>
                 <div class="row">
-                    <br/>
-                    <br/>
-                    <h3> New Stories </h3>
                     <div class="col-md-6">
                         <div ng-repeat="story in newStories = (stories | orderBy:'creationDate':true | limitTo:params.sectionLength)" ng-class="{'hidden-md hidden-lg': (($index % 2) == 1)}">
                             <a ng-href="/#!/page/{{story.id}}">
@@ -89,44 +113,46 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if="randomStories.length" class="row">
+                <div ng-if="randomStories.length">
                     <br/>
                     <br/>
                     <h3> Random </h3>
-                    <div class="col-md-6">
-                        <div ng-repeat="story in randomStories" ng-class="{'hidden-md hidden-lg': (($index % 2) == 1)}">
-                            <a ng-href="/#!/page/{{story.id}}">
-                                <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
-                                    <div class="title">{{story.action}}</div>
-                                    <br/>
-                                    <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
-                                        Reads: {{story.viewCount}}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div ng-repeat="story in randomStories" ng-class="{'hidden-md hidden-lg': (($index % 2) == 1)}">
+                                <a ng-href="/#!/page/{{story.id}}">
+                                    <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
+                                        <div class="title">{{story.action}}</div>
+                                        <br/>
+                                        <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
+                                            Reads: {{story.viewCount}}
+                                        </div>
+                                        <div ng-if="story.bookSize != undefined" class="label label-default label-choices">
+                                            Choices: {{story.bookSize}}
+                                        </div>
+                                        <div class="curtain" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
+                                        <div class="curtain curtain-after" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
                                     </div>
-                                    <div ng-if="story.bookSize != undefined" class="label label-default label-choices">
-                                        Choices: {{story.bookSize}}
-                                    </div>
-                                    <div class="curtain" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
-                                    <div class="curtain curtain-after" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 hidden-xs hidden-sm">
-                        <div ng-repeat="story in randomStories" ng-class="{'hidden-md hidden-lg': (($index % 2) == 0)}">
-                            <a ng-href="/#!/page/{{story.id}}">
-                                <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
-                                    <div class="title">{{story.action}}</div>
-                                    <br/>
-                                    <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
-                                        Reads: {{story.viewCount}}
+                        <div class="col-md-6 hidden-xs hidden-sm">
+                            <div ng-repeat="story in randomStories" ng-class="{'hidden-md hidden-lg': (($index % 2) == 0)}">
+                                <a ng-href="/#!/page/{{story.id}}">
+                                    <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
+                                        <div class="title">{{story.action}}</div>
+                                        <br/>
+                                        <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
+                                            Reads: {{story.viewCount}}
+                                        </div>
+                                        <div ng-if="story.bookSize != undefined" class="label label-default label-choices">
+                                            Choices: {{story.bookSize}}
+                                        </div>
+                                        <div class="curtain" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
+                                        <div class="curtain curtain-after" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
                                     </div>
-                                    <div ng-if="story.bookSize != undefined" class="label label-default label-choices">
-                                        Choices: {{story.bookSize}}
-                                    </div>
-                                    <div class="curtain" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
-                                    <div class="curtain curtain-after" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -153,7 +179,7 @@
         <br/>
         <br/>
     </div>
-    <div class="col-xs-6" ng-if="library.writing" style="position:fixed; right: 15px;">
+    <div class="col-xs-6" ng-if="library.writing" style="position:fixed; right: 15px; bottom:0;">
         <add-choice data-story="true" class="animated slideInRight"></add-choice>
     </div>
 </div>

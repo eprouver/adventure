@@ -12,7 +12,7 @@ body {
     overflow-x: hidden;
 }
 
-a:hover{
+a:hover {
     text-decoration: none !important;
 }
 
@@ -80,7 +80,7 @@ a:hover{
     transform: rotateY(45deg) scaleX(1.6);
     transform-origin: 0 50%;
     opacity: 0.5;
-    .story-card {
+    * {
         pointer-events: none;
     }
 }
@@ -146,12 +146,12 @@ h3,
     position: absolute;
     top: 0;
     left: 0;
-    animation: slideOutLeft 0.5s ease both;
+    animation: slideOutLeft 0.5s 1s ease both;
     z-index: 1;
     &.curtain-after {
         right: 0;
         left: auto;
-        animation: slideOutRight 0.5s ease both;
+        animation: slideOutRight 0.5s 1s ease both;
     }
 }
 
@@ -165,6 +165,7 @@ textarea.ng-invalid-maxlength {
     box-shadow: 0 2px 6px -1px darken($background, 25%);
     transition: all 0.25s ease;
     white-space: normal;
+    margin-bottom: 15px;
 }
 
 .button-icon {
