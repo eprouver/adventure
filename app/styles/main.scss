@@ -9,6 +9,11 @@ $wells: #fff;
 $fonts: black;
 body {
     background: $background;
+    overflow-x: hidden;
+}
+
+a:hover{
+    text-decoration: none !important;
 }
 
 #o-parent {
@@ -75,8 +80,8 @@ body {
     transform: rotateY(45deg) scaleX(1.6);
     transform-origin: 0 50%;
     opacity: 0.5;
-    .story-card{
-     pointer-events:none;
+    .story-card {
+        pointer-events: none;
     }
 }
 
@@ -126,6 +131,11 @@ h3,
     .title {
         font-family: 'Covered By Your Grace', Arial, sans-serif;
         font-size: 1.9em;
+        text-decoration: none !important;
+        &:first-letter {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
     }
 }
 
@@ -164,12 +174,12 @@ textarea.ng-invalid-maxlength {
     float: left;
 }
 
-#add-choice {
-    position:fixed;
-    width: inherit;
-    right: 0;
-}
-
-.fixed{
-    position:fixed;
+#feedback-bar {
+    position: fixed;
+    bottom: 0em;
+    font-size: 6em;
+    .feedback {
+        position: absolute;
+        bottom: 0;
+    }
 }

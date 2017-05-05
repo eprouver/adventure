@@ -23,6 +23,7 @@ angular.module('adventureApp')
             }
         })
         $scope.stories = pages.getStories();
+        $scope.randomStories = _.sample($scope.stories, $scope.params.sectionLength);
 
         $scope.$on('addChoice:success', function(){
         	self.writing = false;

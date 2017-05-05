@@ -1,6 +1,6 @@
 <div>
     <div class="row">
-        <div ng-class="{'col-xs-12': !rCtrl.adding, 'col-sm-8': rCtrl.adding}">
+        <div ng-class="{'col-md-12': !rCtrl.adding, 'col-md-8': rCtrl.adding}">
             <div id="reader" class="animated zoomIn">
                 <div id="o-parent">
                     <div id="o" class="animated">&nbsp;</div>
@@ -13,7 +13,7 @@
                 <div id="options" ng-if="rCtrl.choosing">
                     <div ng-if="!rCtrl.adding">
                         <div ng-if="page.choices.length">
-                            <h2>What will you do?</h2>
+                            <h2>What next?</h2>
                         </div>
                         <br/>
                         <div class="row" ng-if="page.choices">
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div ng-show="rCtrl.adding" class="col-sm-4">
+        <div ng-show="rCtrl.adding" class="col-md-4">
             <add-choice class="animated slideInRight"></add-choice>
         </div>
     </div>

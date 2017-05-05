@@ -98,6 +98,7 @@ angular.module('adventureApp')
 
                 $scope.p = function() {
                     self.choosing = false;
+                    self.adding = false;
                     o.parentNode.classList.remove('animated');
                     o.parentNode.classList.remove('fadeOutUp');
                     o.innerHTML = '&nbsp;'

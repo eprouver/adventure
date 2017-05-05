@@ -40,7 +40,7 @@ angular.module('adventureApp')
                 $rootScope.$broadcast('pages:updated');
             }, 500))
 
-             firebase.database().ref('pages').orderByChild('viewCount').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
+            firebase.database().ref('pages').orderByChild('viewCount').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
                 sanitizePages(res.val());
                 $rootScope.$broadcast('pages:updated');
             }, 500))
@@ -106,54 +106,55 @@ angular.module('adventureApp')
             submitPage: function(story, parent, action, text) {
                 var defer = $q.defer();
 
-                setTimeout(function() {
-                    var page = {
-                        id: parent ? _.guid() : story,
-                        parent: parent,
-                        story: story,
-                        action: action,
-                        text: text,
-                        viewCount: 0,
-                        author: user.getData().uid,
-                        creationDate: new Date().getTime(),
-                        choices: []
-                    };
+                var page = {
+                    id: parent ? _.guid() : story,
+                    parent: parent,
+                    story: story,
+                    action: action,
+                    text: text,
+                    viewCount: 0,
+                    author: user.getData().uid,
+                    creationDate: new Date().getTime(),
+                    choices: []
+                };
 
-                    if (story == page.id) {
-                        page.bookSize = 1;
-                    }
+                if (story == page.id) {
+                    page.bookSize = 1;
+                }
 
-                    firebase.database().ref('pages/' + page.id).set(page);
+                firebase.database().ref('pages/' + page.id).set(page);
 
-                    if (parent) {
+                if (parent) {
 
-                        loadedPages[parent].choices.push(page);
-                        var transfer = angular.copy(loadedPages[parent]);
-                        transfer.choices = transfer.choices.map(function(v) {
-                            return {
-                                id: v.id,
-                                action: v.action
-                            }
-                        })
-                        firebase.database().ref('pages/' + parent).set(transfer);
+                    loadedPages[parent].choices.push(page);
+                    var transfer = angular.copy(loadedPages[parent]);
+                    transfer.choices = transfer.choices.map(function(v) {
+                        return {
+                            id: v.id,
+                            action: v.action
+                        }
+                    })
+                    firebase.database().ref('pages/' + parent).set(transfer);
 
-                        //Increment parent book size;
-                        var databaseRef = database.ref('pages').child(page.story).child('bookSize');
+                    //Increment parent book size;
+                    var databaseRef = database.ref('pages').child(page.story).child('bookSize');
 
-                        databaseRef.transaction(function(bookSize) {
+                    databaseRef.transaction(function(bookSize) {
 
-                            if (!bookSize) { bookSize = 1; }
-                            bookSize += 1;
+                        if (!bookSize) { bookSize = 1; }
+                        bookSize += 1;
 
-                            return bookSize;
-                        });
-                    }
+                        return bookSize;
+                    });
+                }
 
 
-                    loadedPages[page.id] = page;
+                loadedPages[page.id] = page;
 
-                    defer.resolve(page);
-                }, 1000);
+                $rootScope.$broadcast('feedback:page-added')
+
+                defer.resolve(page);
+
 
                 return defer.promise;
 
