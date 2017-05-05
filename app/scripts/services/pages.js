@@ -30,7 +30,22 @@ angular.module('adventureApp')
         }
 
         function init() {
-            firebase.database().ref('pages').orderByChild('parent').equalTo(null).on('value', _.debounce(function(res) {
+            firebase.database().ref('pages').orderByChild('parent').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
+                sanitizePages(res.val());
+                $rootScope.$broadcast('pages:updated');
+            }, 500))
+
+            firebase.database().ref('pages').orderByChild('creationDate').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
+                sanitizePages(res.val());
+                $rootScope.$broadcast('pages:updated');
+            }, 500))
+
+             firebase.database().ref('pages').orderByChild('viewCount').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
+                sanitizePages(res.val());
+                $rootScope.$broadcast('pages:updated');
+            }, 500))
+
+            firebase.database().ref('pages').orderByChild('bookSize').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
                 sanitizePages(res.val());
                 $rootScope.$broadcast('pages:updated');
             }, 500))

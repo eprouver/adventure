@@ -11,8 +11,13 @@ angular.module('adventureApp')
     .controller('LibraryCtrl', ['$scope', 'pages', function($scope, pages) {
         var self = this;
 
+        $scope.params = {
+            sectionLength: 5
+        }
+
         $scope.$on('pages:updated', function() {
             $scope.stories = pages.getStories();
+            $scope.randomStories = _.sample($scope.stories, $scope.params.sectionLength);
             if(!$scope.$$phase){
             	$scope.$apply();
             }
