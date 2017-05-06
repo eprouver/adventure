@@ -184,3 +184,29 @@ textarea.ng-invalid-maxlength {
         bottom: 0;
     }
 }
+
+#back-svg {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    background: $background;
+    pointer-events: none;
+    line {
+        stroke-width: 5px;
+        stroke: lighten($background, 30%);
+        stroke-dasharray: 150 350 150 225 125 1000;
+        animation: moving 10s linear infinite;
+    }
+}
+
+@keyframes moving {
+    from {
+        stroke-dashoffset: -1000;
+    }
+    to {
+        stroke-dashoffset: 1000;
+    }
+}
