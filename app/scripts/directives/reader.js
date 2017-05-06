@@ -16,13 +16,13 @@ angular.module('adventureApp')
                 var o = $element.find('#o')[0];
                 var self = this;
 
-                self.params ={
+                self.params = {
                     choiceLimit: 8
                 }
 
                 self.bookmark = localStorageService.get('bookmark');
-                self.addBookmark = function(remove){
-                    if(remove){
+                self.addBookmark = function(remove) {
+                    if (remove) {
                         self.bookmark = null;
                         localStorageService.set('bookmark', null);
                         $rootScope.$broadcast('feedback:bookmark-removed');
@@ -58,29 +58,29 @@ angular.module('adventureApp')
 
                     // return 2d array with word and focus point
                     return words.trim().replace(/([.?!])([A-Z-])/g, '$1 $2').split(/\s+/).reduce(function(words, str) {
-                       
-                            // focus point
-                            for (var j = focus = (str.length - 1) / 2 | 0; j >= 0; j--)
-                                if (/[aeiou]/.test(str[j])) {
-                                    focus = j
-                                    break
-                                }
 
-                            var t = 60000 / 600 // 500 wpm
+                        // focus point
+                        for (var j = focus = (str.length - 1) / 2 | 0; j >= 0; j--)
+                            if (/[aeiou]/.test(str[j])) {
+                                focus = j
+                                break
+                            }
 
-                            if (str.length > 6)
-                                t += t / 4
+                        var t = 60000 / 600 // 500 wpm
 
-                            if (~str.indexOf(','))
-                                t += t / 2
+                        if (str.length > 6)
+                            t += t / 4
 
-                            if (/[.?!]/.test(str))
-                                t += t * 1.5
+                        if (~str.indexOf(','))
+                            t += t / 2
 
-                            return str.length > 14 || str.length - focus > 7 ? words.concat(parse(hyphenate(str))) : words.concat([
-                                [str, focus, t]
-                            ])
-                        
+                        if (/[.?!]/.test(str))
+                            t += t * 1.5
+
+                        return str.length > 14 || str.length - focus > 7 ? words.concat(parse(hyphenate(str))) : words.concat([
+                            [str, focus, t]
+                        ])
+
                     }, [])
                 }
 
@@ -88,10 +88,10 @@ angular.module('adventureApp')
                     words = parse($scope.page.text);
 
                     var w = words[index++] || $scope.p();
-                    $scope.$apply(function(){
+                    $scope.$apply(function() {
                         $scope.progress = (index / words.length) * 100;
                     })
-                    
+
 
                     if (!w) {
                         o.parentNode.classList.add('animated');
@@ -102,6 +102,19 @@ angular.module('adventureApp')
                             pages.incrementViewCount($scope.page.id);
                             if (!$scope.$$phase) {
                                 $scope.$apply();
+                            }
+
+                            if ($('#sharing-holder').hasClass('hide')) {
+                                $('#sharing-holder').removeClass('hide');
+                                pages.getPage($scope.page.story).then(function(story) {
+                                    socialshares.configure({
+                                        title: 'Help expand this story!',
+                                        description: '"' + story.action + '"',
+                                        text: '"' + story.action + '"'
+                                    })
+
+                                    socialshares.mount() // render with new config
+                                })
                             }
 
                         }, 1000)

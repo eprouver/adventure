@@ -39,18 +39,6 @@
                     <div class="animated fadeIn">
                         <div class="row">
                             <div class="col-sm-4">
-                                <button class="btn btn-primary btn-block" ng-click="p()">
-                                    <i class="fa fa-repeat button-icon" aria-hidden="true"></i>Read Again</button>
-                            </div>
-                            <div class="col-sm-4">
-                                <button class="btn btn-standard btn-block" ng-class="{'active': rCtrl.bookmark == page.id}" ng-click="rCtrl.addBookmark(rCtrl.bookmark == page.id)">
-                                    <span ng-show="rCtrl.bookmark == page.id"> 
-                                        <i class="fa fa-ban button-icon"></i> Bookmarked</span>
-                                    <span ng-show="rCtrl.bookmark != page.id">
-                                        <i class="fa fa-bookmark button-icon"></i> Bookmark</span>
-                                </button>
-                            </div>
-                            <div class="col-sm-4">
                                 <button ng-disabled="page.choices.length >= rCtrl.params.choiceLimit" class="btn btn-info btn-block" ng-class="{'btn-warning': rCtrl.adding}" ng-click="rCtrl.adding = !rCtrl.adding">
                                     <span ng-if="rCtrl.params.choiceLimit - page.choices.length > 0"> 
                                     <div class="label pull-right">
@@ -66,6 +54,18 @@
                                     <span ng-if="page.choices.length >= rCtrl.params.choiceLimit">
                                         No More Choices
                                     </span>
+                                </button>
+                            </div>
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary btn-block" ng-click="p()">
+                                    <i class="fa fa-repeat button-icon" aria-hidden="true"></i>Read Again</button>
+                            </div>
+                            <div class="col-sm-4">
+                                <button class="btn btn-standard btn-block" ng-class="{'active': rCtrl.bookmark == page.id}" ng-click="rCtrl.addBookmark(rCtrl.bookmark == page.id)">
+                                    <span ng-show="rCtrl.bookmark == page.id"> 
+                                        <i class="fa fa-ban button-icon"></i> Bookmarked</span>
+                                    <span ng-show="rCtrl.bookmark != page.id">
+                                        <i class="fa fa-bookmark button-icon"></i> Bookmark</span>
                                 </button>
                             </div>
                         </div>

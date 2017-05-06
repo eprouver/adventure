@@ -22,6 +22,8 @@ angular.module('adventureApp')
                 pages.getPage(page.story).then(function(story){
                     self.bookmark.story = story;
                 })
+            }, function(){
+                localStorageService.set('bookmark', null)
             })
         }
 

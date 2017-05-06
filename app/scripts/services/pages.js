@@ -79,10 +79,10 @@ angular.module('adventureApp')
         }
 
         return {
-            newStory: function() {
+            newStory: function(title) {
                 var defer = $q.defer();
 
-                defer.resolve(_.guid());
+                defer.resolve(_.guid(title));
                 return defer.promise;
             },
             getStories: function() {
@@ -177,13 +177,12 @@ angular.module('adventureApp')
                 if (loadedPages[n]) {
                     defer.resolve(loadedPages[n]);
                 } else {
-                    // fakePage(n, true).then(function(res) {
-                    //     loadedPages[n] = res;
-                    //     defer.resolve(loadedPages[n]);
-                    // })
-
                     var page = firebase.database().ref('pages/' + n);
                     page.on('value', function(snapshot) {
+                        if(!snapshot.val()){
+                            defer.reject('page not found');
+                            return;
+                        }
                         loadedPages[n] = snapshot.val();
                         if (!loadedPages[n].choices) {
                             loadedPages[n].choices = [];

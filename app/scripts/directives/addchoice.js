@@ -56,7 +56,7 @@ angular.module('adventureApp')
                     }
 
                     if($scope.story){
-                        pages.newStory().then(function(story){
+                        pages.newStory(self.action).then(function(story){
                             submitPage(story, parent).then(choiceSuccess);
                         })
                     }else{
