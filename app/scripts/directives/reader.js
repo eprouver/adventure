@@ -58,6 +58,7 @@ angular.module('adventureApp')
                 }
 
                 $scope.readingFinished = function() {
+                    window.scrollTo(0,0);
                     self.choosing = true;
                     pages.incrementViewCount($scope.page.id);
                     if (!$scope.$$phase) {

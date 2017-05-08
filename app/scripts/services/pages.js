@@ -35,20 +35,29 @@ angular.module('adventureApp')
                 $rootScope.$broadcast('pages:updated');
             }, 500))
 
-            firebase.database().ref('pages').orderByChild('creationDate').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
+            firebase.database().ref('pages').orderByChild('creationDate').limitToFirst(10).on('value', _.debounce(function(res) {
                 sanitizePages(res.val());
                 $rootScope.$broadcast('pages:updated');
             }, 500))
 
-            firebase.database().ref('pages').orderByChild('viewCount').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
+            firebase.database().ref('pages').orderByChild('viewCount').limitToFirst(10).on('value', _.debounce(function(res) {
                 sanitizePages(res.val());
                 $rootScope.$broadcast('pages:updated');
             }, 500))
 
-            firebase.database().ref('pages').orderByChild('bookSize').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
+            firebase.database().ref('pages').orderByChild('bookSize').limitToFirst(10).on('value', _.debounce(function(res) {
                 sanitizePages(res.val());
                 $rootScope.$broadcast('pages:updated');
             }, 500))
+
+            var userData = user.getData()
+            if(userData.loaded){
+              firebase.database().ref('pages').orderByChild('author').equalTo(userData.uid).limitToFirst(10).on('value', _.debounce(function(res) {
+                sanitizePages(res.val());
+                $rootScope.$broadcast('pages:updated');
+            }, 500))               
+            }
+
         }
 
         $rootScope.$on('user:updated', init);
@@ -90,13 +99,18 @@ angular.module('adventureApp')
                     return !v.parent;
                 })
             },
+            getPagesByAuthor: function(uid){
+                return _(loadedPages).toArray().filter(function(v) {
+                    return v.author == uid;
+                })
+            },
             incrementViewCount: function(pageId) {
                 var pagesRead = localStorageService.get('pagesRead');
                 if (!pagesRead) {
                     pagesRead = [];
                 }
 
-                if (pagesRead.indexOf(pageId)) {
+                if (pagesRead.indexOf(pageId) > -1) {
                     return;
                 }
 

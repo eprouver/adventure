@@ -16,7 +16,7 @@ angular.module('adventureApp')
                 function notificationFlag(alertType, icon, iconAnim) {
                     if(!iconAnim) iconAnim = '';
                     var self = $('<div class="feedback animated bounceInUp alert alert-' + alertType + '"><i class="fa fa-' + icon + ' animated ' + iconAnim + '"></i></div>').css({
-                        left: ~~(Math.random() * window.innerWidth * 0.8)
+                        left: 20
                     });
                     self.on('animationend animationend webkitAnimationEnd oanimationend MSAnimationEnd', function() {
                         self.removeClass('bounceInUp')

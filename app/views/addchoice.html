@@ -40,7 +40,7 @@
                                 <input class="form-control" type="text" placeholder="Top Text" ng-maxlength="params.maxTitle" ng-model="acCtrl.topMeme" />
                             </div>
                             <div class="meme-viewer animated fadeIn">
-                            <div class="thumbnail meme-holder">
+                            <div class="meme-holder" ng-class="{'thumbnail': !pending && acCtrl.background}">
                                 <fit-text data-value="acCtrl.topMeme" class="meme-text meme-text-top"></fit-text>
                                 <img class="img-responsive" ng-src="{{acCtrl.background}}" />
                                 <fit-text data-value="acCtrl.bottomMeme" class="meme-text meme-text-bottom"></fit-text>
