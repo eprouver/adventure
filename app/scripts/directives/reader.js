@@ -35,6 +35,7 @@ angular.module('adventureApp')
 
                 $scope.progress = 0;
 
+
                 var loadPage = function() {
                     return pages.getPage($scope.main.page).then(function(page) {
                         $scope.page = page;
@@ -45,8 +46,38 @@ angular.module('adventureApp')
                                 })
                             }
                         })
+
+                        if ($scope.page.memeBackground) {
+                            $scope.memeImage = new Image();
+                            $scope.memeImage.onload = function() {
+                                $scope.page.memeLoaded = true;
+                            }
+                            $scope.memeImage.src = $scope.page.memeBackground;
+                        }
                     })
                 }
+
+                $scope.readingFinished = function() {
+                    self.choosing = true;
+                    pages.incrementViewCount($scope.page.id);
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
+
+                    if ($('#sharing-holder').hasClass('hide')) {
+                        $('#sharing-holder').removeClass('hide');
+                        pages.getPage($scope.page.story).then(function(story) {
+                            socialshares.configure({
+                                title: 'Help expand this story!',
+                                description: '"' + story.action + '"',
+                                text: '"' + story.action + '"'
+                            })
+
+                            socialshares.mount() // render with new config
+                        })
+                    }
+
+                };
 
                 self.adding = false;
 
@@ -66,7 +97,7 @@ angular.module('adventureApp')
                                 break
                             }
 
-                        var t = 60000 / 500 // 500 wpm
+                        var t = 60000 / $rootScope.wordSpeed // 500 wpm
 
                         if (str.length > 6)
                             t += t / 4
@@ -92,32 +123,20 @@ angular.module('adventureApp')
                         $scope.progress = (index / words.length) * 100;
                     })
 
-
                     if (!w) {
                         o.parentNode.classList.add('animated');
                         o.parentNode.classList.add('fadeOutUp');
 
-                        setTimeout(function() {
-                            self.choosing = true;
-                            pages.incrementViewCount($scope.page.id);
-                            if (!$scope.$$phase) {
-                                $scope.$apply();
+
+                            //Reading Finished;
+                            if ($scope.page.memeBackground) {
+                                $scope.$apply(function() {
+                                    $scope.readingMeme = true;
+                                });
+                            } else {
+                                setTimeout($scope.readingFinished, 1000)
                             }
-
-                            if ($('#sharing-holder').hasClass('hide')) {
-                                $('#sharing-holder').removeClass('hide');
-                                pages.getPage($scope.page.story).then(function(story) {
-                                    socialshares.configure({
-                                        title: 'Help expand this story!',
-                                        description: '"' + story.action + '"',
-                                        text: '"' + story.action + '"'
-                                    })
-
-                                    socialshares.mount() // render with new config
-                                })
-                            }
-
-                        }, 1000)
+    
 
                         return;
                     }
@@ -131,6 +150,7 @@ angular.module('adventureApp')
                     self.adding = false;
                     o.parentNode.classList.remove('animated');
                     o.parentNode.classList.remove('fadeOutUp');
+                    $scope.readingMeme = false;
                     o.innerHTML = '&nbsp;'
 
                     index = 0
@@ -140,6 +160,10 @@ angular.module('adventureApp')
 
                 $scope.$on('addChoice:success', loadPage);
                 $scope.$on('pages:updated', loadPage);
+                $scope.$on('addChoice:close', function() {
+                    self.adding = false;
+                })
+
                 loadPage().then($scope.p);
 
             }]

@@ -35,15 +35,24 @@ angular.module('adventureApp')
 
         $scope.$on('pages:updated', function() {
             $scope.stories = pages.getStories();
-            $scope.randomStories = _.sample($scope.stories, $scope.params.sectionLength);
+            if ($scope.stories.length > $scope.params.sectionLength) {
+                $scope.randomStories = _.sample($scope.stories, $scope.params.sectionLength);
+            } else {
+                $scope.randomStories = $scope.stories;
+            }
+
             if (!$scope.$$phase) {
                 $scope.$apply();
             }
         })
+
         $scope.stories = pages.getStories();
         $scope.randomStories = _.sample($scope.stories, $scope.params.sectionLength);
 
         $scope.$on('addChoice:success', function() {
+            self.writing = false;
+        });
+        $scope.$on('addChoice:close', function() {
             self.writing = false;
         });
 

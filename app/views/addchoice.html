@@ -1,5 +1,6 @@
 <div id="add-choice">
     <div ng-if="user.loaded">
+        <div class="close" ng-click="$root.$broadcast('addChoice:close')">&times;</div>
         <h1 ng-if="!story">Add Choice</h1>
         <h1 ng-if="story">New Story</h1>
         <br/>
@@ -18,15 +19,15 @@
             </div>
             <div class="form-group">
                 <label>
-                    <input type="checkbox" ng-model="acCtrl.endImage" /> End with a meme?
+                    <input type="checkbox" ng-model="acCtrl.endMeme" /> End on a meme?
                 </label>
             </div>
-            <div class="form-group" ng-if="acCtrl.endImage">
+            <div class="form-group meme-maker" ng-if="acCtrl.endMeme">
                 <div class="row text-center">
-                    <div style="height: 20vh; overflow-y:scroll" ng-class="{ 'col-xs-6' : acCtrl.background, 'col-xs-12': !acCtrl.background}">
+                    <div style="height: 30vh; overflow-y:scroll" ng-class="{ 'col-xs-6' : acCtrl.background, 'col-xs-12': !acCtrl.background}">
                         <h4>Select Background...</h4>
-                        <div class="thumbnail pull-left" ng-click="acCtrl.background = img" ng-repeat="img in acCtrl.memes">
-                            <div class="img" style="height: 55px; width: 55px;" ng-style="{background: 'url(http://www.troll.me/images/'+img+'/thumb.jpg) center center no-repeat'} ">
+                        <div class="thumbnail col-xs-4 col-sm-3 col-md-3 col-lg-2 meme-thumb-holder" ng-click="acCtrl.loadBackground(img)" ng-repeat="img in acCtrl.memes">
+                            <div class="img img-responsive meme-thumb" ng-style="{background: 'url(\'images/meme_tn/'+img+'_tn.jpg\') center center no-repeat'} ">
                                 <!--                                 <div class="caption">
                                     <p>{{img}}</p>
                                 </div> -->
@@ -35,12 +36,18 @@
                     </div>
                     <div ng-class="{ 'col-xs-6' : acCtrl.background, 'hide': !acCtrl.background}">
                         <div ng-if="acCtrl.background">
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Top Text" ng-maxlength="params.maxTitle" />
+                            <div class="form-group" ng-if="!pending && acCtrl.background">
+                                <input class="form-control" type="text" placeholder="Top Text" ng-maxlength="params.maxTitle" ng-model="acCtrl.topMeme" />
                             </div>
-                            <img class="thumbnail img-responsive" ng-src="http://www.troll.me/images/{{acCtrl.background}}/{{acCtrl.background}}.jpg" />
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Top Text" ng-maxlength="params.maxTitle" />
+                            <div class="meme-viewer animated fadeIn">
+                            <div class="thumbnail meme-holder">
+                                <fit-text data-value="acCtrl.topMeme" class="meme-text meme-text-top"></fit-text>
+                                <img class="img-responsive" ng-src="{{acCtrl.background}}" />
+                                <fit-text data-value="acCtrl.bottomMeme" class="meme-text meme-text-bottom"></fit-text>
+                            </div>
+                        </div>
+                            <div class="form-group" ng-if="!pending && acCtrl.background">
+                                <input class="form-control" type="text" placeholder="Bottom Text" ng-maxlength="params.maxTitle" ng-model="acCtrl.bottomMeme" />
                             </div>
                         </div>
                         <div ng-if="!acCtrl.background" class="well">

@@ -101,7 +101,7 @@ angular.module('adventureApp')
                 }
 
                 pagesRead.push(pageId);
-                localStorageService.set('pagesRead', pagesRead.slice(0,50));
+                localStorageService.set('pagesRead', pagesRead.slice(0, 50));
 
                 //Increment viewCount;
                 var databaseRef = database.ref('pages').child(pageId).child('viewCount');
@@ -115,20 +115,26 @@ angular.module('adventureApp')
                     return viewCount;
                 });
             },
-            submitPage: function(story, parent, action, text) {
+            submitPage: function(story, parent, data) {
                 var defer = $q.defer();
 
                 var page = {
-                    id: parent ? _.guid() : story,
+                    id: parent ? _.guid(data.action) : story,
                     parent: parent,
                     story: story,
-                    action: action,
-                    text: text,
+                    action: data.action,
+                    text: data.text,
                     viewCount: 0,
                     author: user.getData().uid,
                     creationDate: new Date().getTime(),
                     choices: []
                 };
+
+                if (data.endMeme) {
+                    page.memeBackground = data.memeBackground;
+                    page.topMeme = data.topMeme;
+                    page.bottomMeme = data.bottomMeme;
+                }
 
                 if (story == page.id) {
                     page.bookSize = 1;
@@ -179,7 +185,7 @@ angular.module('adventureApp')
                 } else {
                     var page = firebase.database().ref('pages/' + n);
                     page.on('value', function(snapshot) {
-                        if(!snapshot.val()){
+                        if (!snapshot.val()) {
                             defer.reject('page not found');
                             return;
                         }

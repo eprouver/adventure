@@ -17,32 +17,174 @@ angular.module('adventureApp')
                 var self = this;
                 $scope.story = $attrs.story;
                 $scope.user = user.getData();
-                self.memes = ["the-most-interesting-man-in-the-world","pissed-off-obama","foul-bachelor-frog","hipster-ariel","socially-awkward-penguin","paranoid-parrot","lame-pun-raccoon","successful-black-man","business-cat-needs","philosoraptor","advice-god","insanity-wolf","musically-oblivious-8th-grader","forever-alone","scumbag-steve","courage-wolf","sexually-oblivious-rhino","y-u-no","ordinary-muslim-man","joseph-ducreux","butthurt-dweller","advice-dog","ronald-mcdonald-call","high-expectations-asian-father","scumbag-obama","xzibit-yo-dawg","thumbs-up-jesus-says","stoner-dog","hipster-kitty","art-student-owl","technologically-impaired-duck","cowboy-dos-equis","scumbag-lincoln","happy-jesus","xzibit-happy-and-sad","angry-samuel-l-jackson","troll","hawkward","empathetic-shark","crazy-girlfriend-praying-mantis","foul-bachelorette-frog","xzibit-funyuns","web-developer-walrus","ptsd-clarinet-boy","grandma-finds-the-internet","rasta-science-teacher","dating-site-murderer","geraldo-rivera","challenge-accepted","osama","hell-yeah-nixon","cockblock-cathy","annoying-facebook-girl","mogen-david-dos-equis-guy","the-old-spice-guy","redneck-randal","engineering-professor","admiral-ackbar-relationship-expert","the-most-interesting-cat-in-the-world","sheltering-suburban-mom","dwight-schrute","dramatic-soap-opera-cat","forever-alone-20","ronald-mcdonald-calling","toad-y-u-no","bowser-troll-face","donkey-kong-forever-alone","mario-fffffffuuuuuuuuuuuu","luigi-okay","me-gusta-princess-peach","captian-herpin-derpin","broly-says","operations-kittie","saint-macho-man-randy-savage","george-clooney","heyy","queen-of-england","7-out-of-10","bill-oreilly","krim","ancient-aliens-guy","futurama-fry","redditors-wife","you-shall-not-pass","bump","supa-troll","kanye-west","in-before-the-lock","smeagle","marty","angry-meatloaf","karate-kyle-dog","trololo","cartmaniaaaz","scoobydoodoodoo","bert","son-goku","weiner","sleep-at-work","socially-awesome-penguin","pushy-john-barrowman","birthday-mj","sad-frog","jackie-chan-whut","good-guy-greg","pickupline-panda","bear-grylls-survival-tactics","torrenting-turtle","sheltered-suburban-kid","longterm-relationship-lobster","emo-daddy","the-chuck-norris","chuck-norris","advice-wario","interrupting-kanye","the-rock-says","black-genetics","troll-cat","idiot-gaston","do-you-even-lift","jeter","al-bundy","casey-anthony","serious-owl","survival-sandy","promote-synergy","direct-workflows","conspiracy-keanu","peppy","kenny-powers","zoidberg-time","home-simpson-panic","professor-oak","liberal-douche-garofalo","but-mom","confucius-says","sleep-disorder-grizzly","never-alone","science-cat","advice-emofag","carlton","gay-guy-gabe","fuuuuuuuuuuuuwqqw","scumbag-jesus","duck-dodgers","men-who-stare-at-lulz","joseph-ducreux-yawning","john-marston","billy-mays","chris-hansen","jokerpool","the-rock","passive-cat","mr-t","hey-guy","gandolf","boba-fett","depression-dog","glamorous-grayson","overly-friendly-call-center-agent","installation-wizard","shoop-da-whoop","x-all-the-things","transformice-shaman","the-smart-dumb-guy","a-sharks-advice","brick-tamland","juno","comic-book-guy","misunderstood-douchebag","couchsurfing-mooch","rapist-freddy","ahmadinejad-troll","bender","hide-yo","red-foreman322","rich-texan","technical-wizard","customer-service-croc","rainbow-dash-excited","arnold-disgusting","chiaotzu","arnold-angry","friend-zone-fiona","push-it-patrick","tron-vader","barack-obama","farting-guard","lil-john","lil-jon","cookie-monnnnsssterrrrr","bundy","high-school-hyena","crossing-guard-gandalf","lafayette","sorority-slut","compliment-bender","internet-pervert","hungover-polar-bear","indiana-jones","black-ops-agent","retail-robin","know-it-all-indian-guy","steve-brule","success-kid","idiot-nerd-girl","chaotic-good-tyler-durden","starting-midlife-crisis-guy","all-the-things-psycho","marie-silverman","naruto-badass","drunk-superman","homer-with-beer","serial-killer-george","unhelpful-high-school-teacher","killer-kitty","alex-jones","south-florida-driver","bill-gates","disaster-girl","noob-explorer-dora","internet-addict-tarsier","exercise","anxiety-cat","donald-trump","troll-ketchup","overly-permissive-hippie-parents","slowpoke","shadow-lurker","tommy-pickles","business-dog","film-school-ferret","over-9000","socially-eccentric-penguin","facepalm-picard","internet-tuff-guy","friend-zone-phil","douche-bag-cat","mongolians","chuck-testa","traitor-brain","erkeljpg","brocat","literal-lassie","rebecca-black","hank-hill-yep","bargain-vader","college-crab","yoda-senses","religion-pigeon","ceiling-cat","insanity-puppy","bush","obama-isnt-happy","alf","atomic-rage","the-most-interesting-monster-in-the-world","debbie-downer","ice-cube","richard-dawkins","screaming-baby","freshman-couple","creepy-willy-wonka","disgusting-doggy","3fiddy","that-annoying-teen-couple","guido-jesus","slickback","good-dog-greg","antijoke-chicken","gadaffi","fancy-crab","scumbag-brain","pedobear","downvoting-roman","karate-kyle","reddit-alien","minecraft","oj-simpson","wanna-know-gay","creeper-canine","harmless-scout-leader","sad-guy","epic-pool-girl","fat-ninja","family-tech-support-guy","scumbag-blackboard","beavis-and-butthead-lol","birthing-pumpkin","beavis-and-butthead-having-5oclocktea","condescending-fox","cool-chick-carol","programmer","bad-advice-cat","captain-hindsight","why-2","facebook-aunt","privilege-denying-feminist","skyrim","success-nixon","rageopotamus","easily-distracted-gymnast","pepper-spray-cop","entitled-bicyclists","racist-dog","pawn-star","charizard-dad","10-guy","advice-snooki","unimpressed-slave","lazy-college-senior","megyn-kelly","ocd-otter","oh-no-dog","most-interesting-troll","ok-guy","badass-youth","leela-futurama","baby-godfather","afraid-of-a-basketball","the-most-forever-alone-in-the-world"];
-
+                self.memes = ["001 - Regret bear",
+"002 - Confession bear",
+"003 - quotHow about noquot",
+"004 - Socially awesomeawkward",
+"005 - Socially awkwardawesome",
+"006 - Socially awkward penguin",
+"007 - Socially awesome penguin",
+"008 - Unpopular opinion puffin",
+"009 - Popular opinion pangolin ",
+"010 - Facepalm Picard",
+"011 - quotWhy the fuckquot",
+"012 - Success Picard",
+"013 - Scumbag Steve",
+"014 - Scumbag brain",
+"015 - Good guy greg",
+"016 - Bad teacher",
+"017 - quotOne does not simplyquot",
+"018 - Brace yourselves",
+"019 - Most interesting man in the world",
+"020 - quotAliensquot",
+"021 - quot___ ___ everywherequot",
+"022 - First world problems",
+"023 - 90s problems",
+"024 - quotBut that039s none of my businessquot",
+"025 - Bad luck Brian",
+"026 - Condescending Wonka",
+"027 - quotThat039d be greatquot",
+"028 - Success kid",
+"029 - 3rd world success kid",
+"030 - Skeptical kid",
+"031 - Embarassing things you thoughtdid as a kid",
+"032 - Getting yourself into an awkard situation",
+"033 - First day on internet kid",
+"034 - quotAm I the only one around herequot",
+"035 - quotToo Damn Highquot",
+"036 - quotNot sure ifquot",
+"037 - quotShut up and take my moneyquot",
+"038 - Why not Zoidberg",
+"039 - quotYour____is bad and you should feel badquot",
+"040 - Blackjack and hookers",
+"041 - Foul bachelor frog",
+"042 - Foul bachelorette frog",
+"043 - Fact frog",
+"044 - Actual advice mallard",
+"045 - Malicious advice mallard",
+"046 - Insanity wolf",
+"047 - Courage wolf",
+"048 - Awkward situation seal",
+"049 - Seal of approval",
+"050 - Grumpy cat",
+"051 - quotI should buy aquot",
+"052 - Business cat",
+"053 - Chemistry joke cat",
+"054 - Heavy Breathing",
+"055 - Doge",
+"056 - Phteven",
+"057 - quotJenkinsquot",
+"058 - Chemistry dog",
+"059 - Lawyer dog",
+"060 - Redneck dog",
+"061 - Weird things you do",
+"062 - Paranoid parrot",
+"063 - quotJust rightquot",
+"064 - Interrupting Batman",
+"065 - quotWhat if I told youquot",
+"066 - Caveman spongebob",
+"067 - Pondering spongebob",
+"068 - I don039t actually know what this one is but I like it so here it is",
+"069 - quotI039ll have you knowquot",
+"070 - quotIs____ a _____quot",
+"071 - quotNo one bats an eyeeveryone loses their mindquot",
+"072 - quotYo dawgquot",
+"073 - Keanu",
+"074 - Overly attached girlfriend",
+"075 - Sudden clarity Clarence",
+"076 - quotI will find you and I will kill youquot",
+"077 - Pepperidge farm remembers",
+"078 - quotYou wanna know what grids my gearsquot",
+"079 - Angry Gordon Ramsay",
+"080 - quotquot",
+"081 - quotYou get a meme template you get a meme template everybody gets a meme templatequot",
+"082 - Grandma uses the computer",
+"083 - That one high dude",
+"084 - Ermahgerd",
+"085 - quotSo I039ve got that going for me which is nicequot",
+"086 - quotI too like to live dangerouslyquot",
+"087 - quotWRONGquot",
+"088 - quotSee no one caresquot",
+"089 - quotCooorrrralllllquot",
+"090 - quotThis is where I039d put ____ IF I HAD ONEquot",
+"091 - Inception",
+"092 - Sad spiderman",
+"093 - quotThings are getting pretty seriousquot",
+"094 - Ducreux",
+"095 - Hypocrite Hippy ",
+"096 - quotAaaaand it039s gonequot",
+"097 - quotYou039re gonna have a bad timequot",
+"098 - Captain hindsight",
+"099 - Bad joke eel",
+"100 - quotI039m just sitting herequot"]
                 $scope.params = {
                     maxTitle: 100,
                     maxPage: 520
                 }
 
-                $scope.$on('user:updated', function(){
+                $scope.$on('user:updated', function() {
                     $scope.user = user.getData();
-                    if(!$scope.$$phase){
+                    if (!$scope.$$phase) {
                         $scope.$apply();
                     }
                 })
 
-                if(!$scope.user.loaded){
+                if (!$scope.user.loaded) {
                     setTimeout(user.showButtons, 100);
                 }
 
-                function submitPage(story, parent){
-                    return pages.submitPage(story, parent, self.action, self.text).then(function(res) {
-                        if($scope.rCtrl){
+                $scope.pending;
+                $scope.memeTextStyle = function(){
+                    console.log(arguments);
+                };
+
+                self.loadBackground = function(bkg) {
+                    self.background = 'images/loading.svg';
+                    $scope.pending = bkg;
+
+                    var img = new Image();
+
+                    img.onerror = function() {
+                        $rootScope.$broadcast('feedback:memeUnavailable');
+                        self.memes = _(self.memes).without(bkg);
+                        self.background = undefined;
+                        $scope.pending = undefined;
+
+                        if (!$scope.$$phase) {
+                            $scope.$apply();
+                        }
+                    }
+
+                    img.onload = function() {
+                        if ($scope.pending == bkg) {
+                            self.background = "images/memes/" + bkg+ ".jpg";
+                            $scope.pending = undefined;
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                        }
+                    }
+
+                    img.src = "images/memes/" + bkg+ ".jpg"
+
+
+                }
+
+                function submitPage(story, parent) {
+                    return pages.submitPage(story, parent, {
+                        action: self.action,
+                        text: self.text,
+                        endMeme: self.endMeme,
+                        memeBackground: self.background,
+                        topMeme: self.topMeme,
+                        bottomMeme: self.bottomMeme
+                    }).then(function(res) {
+                        if ($scope.rCtrl) {
                             $scope.rCtrl.adding = false;
                         }
                         self.action = self.text = undefined;
                         $scope.sending = false;
-                    })                    
+                    })
                 }
 
                 $scope.addChoice = function() {
@@ -53,15 +195,15 @@ angular.module('adventureApp')
                         var parent = null;
                     }
 
-                    var choiceSuccess = function(){
+                    var choiceSuccess = function() {
                         $rootScope.$broadcast('addChoice:success')
                     }
 
-                    if($scope.story){
-                        pages.newStory(self.action).then(function(story){
+                    if ($scope.story) {
+                        pages.newStory(self.action).then(function(story) {
                             submitPage(story, parent).then(choiceSuccess);
                         })
-                    }else{
+                    } else {
                         submitPage($scope.page.story, parent).then(choiceSuccess);
                     }
 

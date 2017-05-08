@@ -1,6 +1,6 @@
 <div>
     <div class="row">
-        <div ng-class="{'col-md-12': !rCtrl.adding, 'col-md-8': rCtrl.adding}">
+        <div ng-class="{'col-md-12': !rCtrl.adding, 'col-md-4': rCtrl.adding}">
             <div id="reader" class="animated zoomIn">
                 <div id="o-parent">
                     <div id="o" class="animated">&nbsp;</div>
@@ -8,6 +8,25 @@
                     <br/>
                     <div class="progress">
                         <div class="progress-bar progress-bar-primary" ng-style="{width: progress + '%'}"></div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="input-range yolo">
+                        <input type="range" min="100" max="1500" ng-model="$root.wordSpeed" />
+                        <div class="value-display text-muted">
+                            Speed: {{$root.wordSpeed}}
+                        </div>
+                    </div>
+                </div>
+                <div id="meme-viewer" class="meme-viewer animated" ng-class="{'fadeInUp': !rCtrl.choosing, 'fadeOutUp': rCtrl.choosing}" ng-if="readingMeme" ng-click="readingFinished()">
+                    <div class="thumbnail meme-holder" ng-if="page.memeLoaded">
+                        <fit-text data-value="page.topMeme" class="meme-text meme-text-top"></fit-text>
+                        <img class="img-responsive" ng-src="{{page.memeBackground}}" />
+                        <fit-text data-value="page.bottomMeme" class="meme-text meme-text-bottom"></fit-text>
+                    </div>
+                    <p ng-if="page.memeLoaded" class="text-muted">Click to continue&hellip;</p>
+                    <div ng-if="!page.memeLoaded">
+                        <img src="images/loading.svg" />
                     </div>
                 </div>
                 <div id="options" ng-if="rCtrl.choosing">
@@ -38,7 +57,7 @@
                     <br/>
                     <div class="animated fadeIn">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" ng-class="{'col-sm-4 col-lg-3': !rCtrl.adding, 'col-xs-12': rCtrl.adding}">
                                 <button ng-disabled="page.choices.length >= rCtrl.params.choiceLimit" class="btn btn-info btn-block" ng-class="{'btn-warning': rCtrl.adding}" ng-click="rCtrl.adding = !rCtrl.adding">
                                     <span ng-if="rCtrl.params.choiceLimit - page.choices.length > 0"> 
                                     <div class="label pull-right">
@@ -56,11 +75,11 @@
                                     </span>
                                 </button>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" ng-class="{'col-sm-4 col-lg-3': !rCtrl.adding, 'col-xs-12': rCtrl.adding}">
                                 <button class="btn btn-primary btn-block" ng-click="p()">
                                     <i class="fa fa-repeat button-icon" aria-hidden="true"></i>Read Again</button>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" ng-class="{'col-sm-4 col-lg-3': !rCtrl.adding, 'col-xs-12': rCtrl.adding}">
                                 <button class="btn btn-standard btn-block" ng-class="{'active': rCtrl.bookmark == page.id}" ng-click="rCtrl.addBookmark(rCtrl.bookmark == page.id)">
                                     <span ng-show="rCtrl.bookmark == page.id"> 
                                         <i class="fa fa-ban button-icon"></i> Bookmarked</span>
@@ -74,7 +93,7 @@
                 </div>
             </div>
         </div>
-        <div ng-show="rCtrl.adding" class="col-md-4">
+        <div ng-show="rCtrl.adding" class="col-md-8">
             <add-choice class="animated fadeInRight"></add-choice>
         </div>
     </div>

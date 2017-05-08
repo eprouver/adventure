@@ -80,6 +80,7 @@ a:hover {
     transform: rotateY(45deg) scaleX(1.6);
     transform-origin: 0 50%;
     opacity: 0.5;
+    font-size: 0.5em;
     * {
         pointer-events: none;
     }
@@ -107,7 +108,9 @@ h3,
     background: white;
     padding: 5px;
     margin-bottom: 5px;
-    border: 5px solid darken($background, 20%);
+    border: 1px solid darken($background, 20%);
+    border-bottom: 3px solid darken($background, 15%);
+    box-shadow: 0 2px 4px -1px darken($background, 30%);
     border-radius: 5px;
     text-align: center;
     animation-duration: 500ms;
@@ -212,6 +215,154 @@ textarea.ng-invalid-maxlength {
     }
 }
 
-#library-holder{
+#library-holder {
     z-index: 10;
+}
+
+.meme-viewer {
+    text-align: center;
+    width: 100%;
+    .meme-holder {
+        position: relative;
+        display: inline-block;
+        .meme-text {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            left: 0;
+            width: 100%;
+            padding: 0.5em 18px;
+            line-height: 1.25em;
+            text-shadow: 0 1px 0 black, 1px 0 0 black, 0 -1px 0 black, -1px 0 0 black;
+        }
+        .meme-text-top {
+            top: 0;
+        }
+        .meme-text-bottom {
+            bottom: 5px;
+        }
+    }
+}
+
+.meme-maker {
+    .meme-thumb-holder {
+        background: black;
+    }
+    .meme-thumb {
+        display: inline-block;
+        min-height: 100px;
+        width: 100%;
+        height: 100%;
+        background-size: cover !important;
+    }
+}
+
+#sharing-holder {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    width: auto;
+    max-width: 100%;
+    cursor: default;
+    text-align: right;
+    line-height: 3em;
+    float: right;
+}
+
+.input-range {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    min-width: 11em;
+    margin-bottom: 2em;
+}
+
+.input-range input[type="range"] {
+    flex-grow: 1;
+    line-height: 1;
+    height: 2em;
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.input-range input[type="range"]:focus {
+    outline: none;
+}
+
+.input-range input[type="range"]::-moz-focus-inner {
+    border: 0;
+}
+
+.input-range.yolo {
+    box-shadow: 0 0 0 0.25em darken($background, 10%);
+    border-radius: 2em;
+    padding: 0.5em;
+    background: $background;
+    .label {
+        color: #A8A8A8;
+        font-size: 2.1em;
+        position: absolute;
+        top: 0;
+        font-weight: bold;
+        pointer-events: none;
+        opacity: 0.5;
+    }
+    input[type="range"] {
+        margin: 0;
+        border-right: 5px solid darken($background, 10%);
+    }
+    input[type="range"]::-webkit-slider-thumb {
+        width: 2em;
+        height: 2em;
+        margin-top: -0.5em;
+        cursor: pointer;
+        background-color: $brand-primary;
+        border-radius: 2em;
+        -webkit-appearance: none;
+        box-shadow: 0 0 0 5px $brand-primary;
+        z-index: 2;
+    }
+    input[type="range"]::-moz-range-thumb {
+        width: 2em;
+        height: 2em;
+        margin-top: -0.5em;
+        cursor: pointer;
+        background-color: $brand-primary;
+        border-radius: 2em;
+        -webkit-appearance: none;
+        box-shadow: 0 0 0 5px $brand-primary;
+        z-index: 2;
+    }
+    input[type="range"]::-ms-thumb {
+        width: 2em;
+        height: 2em;
+        margin-top: -0.5em;
+        cursor: pointer;
+        background-color: $brand-primary;
+        border-radius: 2em;
+        -webkit-appearance: none;
+        box-shadow: 0 0 0 5px $brand-primary;
+        z-index: 2;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+        height: 1em;
+        border-radius: 0.2em;
+    }
+    input[type="range"]::-moz-range-track {
+        height: 1em;
+        border-radius: 0.2em;
+    }
+    input[type="range"]::-ms-track {
+        height: 1em;
+        border-radius: 0.2em;
+    }
+    .value-display {
+        font-size: 1.4em;
+        font-family: sans-serif;
+        width: 9.25em;
+        text-align: right;
+    }
 }

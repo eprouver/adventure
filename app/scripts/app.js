@@ -35,7 +35,8 @@ angular
                 redirectTo: '/library'
             });
     })
-    .run(['user', function(user) {
+    .run(['$rootScope','user', function($rootScope, user) {
+        $rootScope.wordSpeed = 500;
         user.start();
     }])
     .config(function(localStorageServiceProvider) {

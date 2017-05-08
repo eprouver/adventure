@@ -17,7 +17,7 @@
 </svg>
 
 <div  id="library-holder" class="row">
-    <div class="holder-3d" ng-class="{'col-xs-12': !library.writing, 'col-xs-6': library.writing}" ng-click="library.writing = false">
+    <div class="holder-3d" ng-class="{'col-xs-12': !library.writing, 'col-md-4 hidden-xs hidden-sm': library.writing}" ng-click="library.writing = false">
         <div class="transition-all" ng-class="{'left-door': library.writing}">
             <div class="animated slideInDown" ng-if="library.bookmark">
                 <h2>
@@ -177,7 +177,8 @@
             </div>
             <br/>
             <br/>
-            <div ng-if="!stories.length">
+            <div ng-if="!stories.length" class="text-center">
+                <img src="images/loading.svg"/>
                 <h2 class="text-muted">Loading&hellip;</h2>
             </div>
         </div>
@@ -198,7 +199,7 @@
         <br/>
         <br/>
     </div>
-    <div class="col-xs-6" ng-if="library.writing">
+    <div class="col-md-8 col-xs-12" ng-show="library.writing">
         <add-choice data-story="true" class="animated fadeInRight"></add-choice>
     </div>
 </div>
