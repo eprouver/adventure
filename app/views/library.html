@@ -16,7 +16,7 @@
   <line vector-effect="non-scaling-stroke" class="animate-1"2="133" y1="0" x1="146"/>
 </svg>
 
-<div class="row">
+<div  id="library-holder" class="row">
     <div class="holder-3d" ng-class="{'col-xs-12': !library.writing, 'col-xs-6': library.writing}" ng-click="library.writing = false">
         <div class="transition-all" ng-class="{'left-door': library.writing}">
             <div class="animated slideInDown" ng-if="library.bookmark">
@@ -198,7 +198,7 @@
         <br/>
         <br/>
     </div>
-    <div class="col-xs-6" ng-if="library.writing" style="position:fixed; right: 15px; bottom:0;">
-        <add-choice data-story="true" class="animated slideInRight"></add-choice>
+    <div class="col-xs-6" ng-if="library.writing">
+        <add-choice data-story="true" class="animated fadeInRight"></add-choice>
     </div>
 </div>

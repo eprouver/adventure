@@ -10,20 +10,49 @@
                 <label ng-if="story">Title</label>
                 <input required ng-model="acCtrl.action" class="form-control" type="text" ng-trim="false" ng-maxlength="params.maxTitle" />
             </div>
-            <br/>
             <div class="form-group">
                 <label class="pull-right" ng-class="{'text-info': acCtrl.text.length < params.maxPage, 'text-warning': acCtrl.text.length == params.maxPage, 'hide': !acCtrl.text.length}">{{acCtrl.text.length || 0}} / {{params.maxPage}}</label>
                 <label ng-if="!story">What Happens Next?</label>
                 <label ng-if="story">First Page</label>
-                <textarea required ng-model="acCtrl.text" class="form-control" rows="10" ng-maxlength="params.maxPage"></textarea>
+                <textarea required ng-model="acCtrl.text" class="form-control" rows="6" ng-maxlength="params.maxPage"></textarea>
             </div>
-            <br/>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" ng-model="acCtrl.endImage" /> End with a meme?
+                </label>
+            </div>
+            <div class="form-group" ng-if="acCtrl.endImage">
+                <div class="row text-center">
+                    <div style="height: 20vh; overflow-y:scroll" ng-class="{ 'col-xs-6' : acCtrl.background, 'col-xs-12': !acCtrl.background}">
+                        <h4>Select Background...</h4>
+                        <div class="thumbnail pull-left" ng-click="acCtrl.background = img" ng-repeat="img in acCtrl.memes">
+                            <div class="img" style="height: 55px; width: 55px;" ng-style="{background: 'url(http://www.troll.me/images/'+img+'/thumb.jpg) center center no-repeat'} ">
+                                <!--                                 <div class="caption">
+                                    <p>{{img}}</p>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-class="{ 'col-xs-6' : acCtrl.background, 'hide': !acCtrl.background}">
+                        <div ng-if="acCtrl.background">
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Top Text" ng-maxlength="params.maxTitle" />
+                            </div>
+                            <img class="thumbnail img-responsive" ng-src="http://www.troll.me/images/{{acCtrl.background}}/{{acCtrl.background}}.jpg" />
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Top Text" ng-maxlength="params.maxTitle" />
+                            </div>
+                        </div>
+                        <div ng-if="!acCtrl.background" class="well">
+                            <h4>Select an Image&hellip;</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <button ng-disabled="sending" type="submit" class="btn btn-lg btn-success btn-block">
-                <i class="fa fa-plus button-icon" aria-hidden="true"></i>
-               Add Choice
+                <i class="fa fa-plus button-icon" aria-hidden="true"></i> Add Choice
             </button>
         </form>
-        <br/><br/><br/><br/><br/><br/><br/><br/>
     </div>
     <div ng-if="!user.loaded">
         <br/>

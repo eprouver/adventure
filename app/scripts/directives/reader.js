@@ -66,7 +66,7 @@ angular.module('adventureApp')
                                 break
                             }
 
-                        var t = 60000 / 600 // 500 wpm
+                        var t = 60000 / 500 // 500 wpm
 
                         if (str.length > 6)
                             t += t / 4

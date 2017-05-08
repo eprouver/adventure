@@ -24,7 +24,7 @@ angular.module('adventureApp')
                 firebase.auth.GithubAuthProvider.PROVIDER_ID,
                 firebase.auth.EmailAuthProvider.PROVIDER_ID
             ],
-            signInFlow: 'popup',
+            // signInFlow: 'popup',
             // Terms of service url.
             tosUrl: '<your-tos-url>',
             callbacks: {

@@ -194,6 +194,7 @@ textarea.ng-invalid-maxlength {
     left: 0;
     background: $background;
     pointer-events: none;
+    transform: translateZ(-2000px);
     line {
         stroke-width: 5px;
         stroke: lighten($background, 30%);
@@ -209,4 +210,8 @@ textarea.ng-invalid-maxlength {
     to {
         stroke-dashoffset: 1000;
     }
+}
+
+#library-holder{
+    z-index: 10;
 }
