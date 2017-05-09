@@ -10,6 +10,7 @@ angular.module('adventureApp')
             templateUrl: 'views/reader.html',
             replace: true,
             restrict: 'E',
+            transclude: true,
             controllerAs: 'rCtrl',
             controller: ['$scope', '$element', function($scope, $element) {
                 var playing, index, loop, parse, focus, hyphenate, str, words;

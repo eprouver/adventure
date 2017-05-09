@@ -9,9 +9,10 @@
  */
 angular.module('adventureApp')
     .service('user', ['$rootScope', function($rootScope) {
-
+        var database = firebase.database();
         var myUser = {
-            loaded: false
+            loaded: false,
+            hearts: []
         };
 
         // FirebaseUI config.
@@ -30,7 +31,7 @@ angular.module('adventureApp')
             callbacks: {
                 signInSuccess: function(currentUser, credential, redirectUrl) {
                     document.getElementById('firebaseui-auth-container').style.display = 'none';
-                    setTimeout(function(){
+                    setTimeout(function() {
                         $rootScope.$broadcast('user:updated');
                     }, 3000);
                     return true;
@@ -40,13 +41,13 @@ angular.module('adventureApp')
 
         var ui;
 
-        return {
+        var self = {
             start: function() {
 
                 // Initialize the FirebaseUI Widget using Firebase.
                 try {
-                	var auth = firebase.auth();
-                	auth.onAuthStateChanged(function(user) {
+                    var auth = firebase.auth();
+                    auth.onAuthStateChanged(function(user) {
                         if (user) {
                             // User is signed in.
                             var displayName = user.displayName;
@@ -67,9 +68,22 @@ angular.module('adventureApp')
                                     loaded: true
                                 }
 
-                                $rootScope.$broadcast('user:updated');
+                                database.ref('userData/' + myUser.uid).on('value', function(res) {
+                                    var userData = res.val();
+                                    if (!userData) {
+
+                                        database.ref('userData/' + myUser.uid).set({
+                                            hearts: ['no hearts']
+                                        })
+                                    } else {
+                                        myUser.hearts = _(userData.hearts).without('no hearts');
+                                    }
+                                    $rootScope.$broadcast('user:updated');
+                                })
+
+
                             });
-                            
+
                         } else {
                             // User is signed out.
                             // document.getElementById('sign-in-status').textContent = 'Signed out';
@@ -77,7 +91,7 @@ angular.module('adventureApp')
                             // document.getElementById('account-details').textContent = 'null';
 
                             // The start method will wait until the DOM is loaded.
-                            
+
 
                         }
                     }, function(error) {
@@ -85,7 +99,7 @@ angular.module('adventureApp')
                     })
                     ui = new firebaseui.auth.AuthUI(auth);
 
-                    
+
                 } catch (e) {
 
                 }
@@ -93,8 +107,23 @@ angular.module('adventureApp')
             getData: function() {
                 return myUser;
             },
-            showButtons: function(){
+            showButtons: function() {
                 ui.start('#firebaseui-auth-container', uiConfig);
+            },
+            getHearts: function() {
+                return myUser.hearts || [];
+            },
+            setHeart: function(id) {
+                if (myUser.hearts.indexOf(id) > -1) {
+                    myUser.hearts = _(myUser.hearts).without(id);
+                } else {
+                    myUser.hearts.push(id);
+                }
+                if (myUser.loaded) {
+                    database.ref('userData/' + myUser.uid + '/hearts').set(myUser.hearts);
+                }
             }
         }
+
+        return self;
     }]);

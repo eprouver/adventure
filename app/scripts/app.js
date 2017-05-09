@@ -35,7 +35,7 @@ angular
                 redirectTo: '/library'
             });
     })
-    .run(['$rootScope','user', function($rootScope, user) {
+    .run(['$rootScope', 'user', function($rootScope, user) {
         $rootScope.wordSpeed = 500;
         user.start();
     }])
@@ -46,7 +46,10 @@ angular
 
 _.mixin({
     guid: function(title) {
-        return encodeURIComponent(title.replace(/[^\w\s]/gi, '').replace(/ /g, '-')) + 'xx-xx'.replace(/[xy]/g, function(c) {
+        if (title.length > 20) {
+            title = title.slice(0, 20);
+        }
+        return encodeURIComponent(title.replace(/[^\w\s]/gi, '').replace(/ /g, '-')) + '-xx-xx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0,
                 v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);

@@ -1,6 +1,11 @@
 <div id="add-choice">
     <div ng-if="user.loaded">
-        <div class="close" ng-click="$root.$broadcast('addChoice:close')">&times;</div>
+        <div class="hidden-lg hidden-md">
+            <br/><br/>
+        </div>
+        <h1 class="btn btn-danger pull-right" ng-click="$root.$broadcast('addChoice:close')">
+            <i class="fa fa-close"></i>
+        </h1>
         <h1 ng-if="!story">Add Choice</h1>
         <h1 ng-if="story">New Story</h1>
         <br/>

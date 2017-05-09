@@ -30,22 +30,22 @@ angular.module('adventureApp')
         }
 
         function init() {
-            firebase.database().ref('pages').orderByChild('parent').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
+            database.ref('pages').orderByChild('parent').equalTo(null).limitToFirst(10).on('value', _.debounce(function(res) {
                 sanitizePages(res.val());
                 $rootScope.$broadcast('pages:updated');
             }, 500))
 
-            firebase.database().ref('pages').orderByChild('creationDate').limitToFirst(10).on('value', _.debounce(function(res) {
+            database.ref('pages').orderByChild('creationDate').limitToFirst(10).on('value', _.debounce(function(res) {
                 sanitizePages(res.val());
                 $rootScope.$broadcast('pages:updated');
             }, 500))
 
-            firebase.database().ref('pages').orderByChild('viewCount').limitToFirst(10).on('value', _.debounce(function(res) {
+            database.ref('pages').orderByChild('viewCount').limitToFirst(10).on('value', _.debounce(function(res) {
                 sanitizePages(res.val());
                 $rootScope.$broadcast('pages:updated');
             }, 500))
 
-            firebase.database().ref('pages').orderByChild('bookSize').limitToFirst(10).on('value', _.debounce(function(res) {
+            database.ref('pages').orderByChild('bookSize').limitToFirst(10).on('value', _.debounce(function(res) {
                 sanitizePages(res.val());
                 $rootScope.$broadcast('pages:updated');
             }, 500))

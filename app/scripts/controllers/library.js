@@ -60,6 +60,27 @@ angular.module('adventureApp')
                 if (!$scope.$$phase) {
                     $scope.$apply();
                 }
+            });
+
+            $scope.hearts = user.getHearts();
+
+            $scope.$on('user:updated', function() {
+                $scope.hearts = user.getHearts();
+            });
+
+            $scope.$watch('library.writing', function(n,o){
+                if(n != o){
+                    var move = 1;
+                    requestAnimationFrame(function scrollUp(){
+                        if(window.scrollY > 0){
+                            window.scrollTo(0, window.scrollY - move);
+                            move += 2;
+                             requestAnimationFrame(scrollUp);
+                        }
+
+                    })
+                    
+                }
             })
 
             $scope.stories = pages.getStories();
@@ -68,12 +89,13 @@ angular.module('adventureApp')
 
             $scope.$on('addChoice:success', function() {
                 self.writing = false;
+
             });
             $scope.$on('addChoice:close', function() {
                 self.writing = false;
             });
 
-            (function review() {
+            (function backLines() {
                 var back = document.getElementById("back-svg");
 
                 if (!back) return;
@@ -92,7 +114,7 @@ angular.module('adventureApp')
                     back.classList.add("animated");
                     back.classList.add("fadeIn");
 
-                    setTimeout(review, 10000);
+                    setTimeout(backLines, 10000);
                 }, 1000);
             })();
         }

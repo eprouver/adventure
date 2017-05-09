@@ -1,21 +1,24 @@
-<h3 class="pull-right">
-	<a href="/#!/library" >
-		<span class="fa fa-book"></span>
-	</a>
+<h3>
+    <a href="/#!/library" class="pull-right">
+        <span class="fa fa-book"></span>
+    </a>
+    <span ng-click="main.heartPage()">
+    <heart-me data-hearted="main.hearted" data-animate="main.ready"></heart-me>
+</span>
 </h3>
-<br/>
-<br/>
 <reader></reader>
-<br/><br/>
+<br/>
+<br/>
 <div id="sharing-holder" class="socialshares hide" data-icononly>
-    Share the Story - help it grow:<br/>
+    Share the Story - help it grow:
+    <br/>
     <div class="socialshares-twitter animated bounceIn" style="animation-delay: 200ms"></div>
-<!--     <div class="socialshares-facebook animated bounceIn" style="animation-delay: 400ms"></div>
- -->    <div class="socialshares-email animated bounceIn" style="animation-delay: 600ms"></div>
+    <!--     <div class="socialshares-facebook animated bounceIn" style="animation-delay: 400ms"></div>
+ -->
+    <div class="socialshares-email animated bounceIn" style="animation-delay: 600ms"></div>
     <div class="socialshares-more animated bounceIn" style="animation-delay: 800ms"></div>
     <!-- Other buttons here... -->
 </div>
-
 <br/>
 <br/>
 <br/>

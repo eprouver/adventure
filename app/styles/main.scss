@@ -55,7 +55,7 @@ a:hover {
 }
 
 #reader {
-    position:relative;
+    position: relative;
     .animated.fadeOutUp {
         pointer-events: none;
         position: absolute;
@@ -86,6 +86,9 @@ a:hover {
     * {
         pointer-events: none;
     }
+    .story-card {
+        box-shadow: none !important;
+    }
 }
 
 h1,
@@ -95,15 +98,6 @@ h2,
 h3,
 .h3 {
     margin-top: 0;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 49% 49%;
-    grid-column-gap: 1%;
-    @media screen and (max-width: 760px) {
-        grid-template-columns: 49% 49%;
-    }
 }
 
 .story-card {
@@ -224,7 +218,6 @@ textarea.ng-invalid-maxlength {
 .meme-viewer {
     text-align: center;
     width: 100%;
-
     .meme-holder {
         position: relative;
         display: inline-block;
@@ -364,9 +357,9 @@ textarea.ng-invalid-maxlength {
         border-radius: 0.2em;
     }
     .value-display {
-    min-width: 7.85em;
-    text-align: right;
-    font-size: 1.4em;
+        min-width: 7.85em;
+        text-align: right;
+        font-size: 1.4em;
     }
 }
 
@@ -374,4 +367,47 @@ textarea.ng-invalid-maxlength {
     position: absolute;
     top: 0.25em;
     left: 0.35em;
+    font-size: 0.65em;
+}
+
+.heart {
+    color: darken($background, 20%);
+    &.hearted {
+        color: #FF568E;
+    }
+}
+
+.heart-holder {
+    display: inline-block;
+    position: relative;
+    z-index: 9;
+    &.hearted .top-heart {
+        color: #FF568E;
+    }
+    &.animated .top-heart {
+        transition: 2.5s 0.5s ease color;
+    }
+    .top-heart {
+        position: relative;
+        z-index: 1;
+        color: darken($background, 20%);
+    }
+    .anim-heart-holder {
+        position: absolute;
+        left: 0.25em;
+        top: -1.2em;
+        pointer-events: none;
+        font-size: 0.7em;
+        height: 4em;
+        .rotate-holder {
+            width: 4em;
+        }
+    }
+    .faller {
+        color: $brand-primary;
+        position: absolute;
+        font-size: 0.5em;
+        top: 1em;
+        height: 3em;
+    }
 }

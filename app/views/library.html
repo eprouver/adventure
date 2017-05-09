@@ -1,22 +1,21 @@
 <svg id="back-svg" class="hide">
-    <line vector-effect="non-scaling-stroke" class="animate-1" y2="479" x2="5" y1="320" x1="194"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1" y2="320" x2="196" y1="146" x1="223"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1" y2="320" x2="196" y1="274" x1="503"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1" y2="291" x2="380" y1="128" x1="477"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1" y2="148" x2="223" y1="12" x1="136"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1" y2="145" x2="226" y1="23" x1="343"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1" y2="130" x2="476" y1="0" x1="444"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1" y2="132" x2="477" y1="131" x1="637"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1" y2="132" x2="473" y1="3" x1="605"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1"x2="500" y1="386" x1="638"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1"x2="496" y1="197" x1="640"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1"="106" y1="13" x1="134"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1"="339" y1="22" x1="340"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1"2="343" y1="1" x1="400"/>
-  <line vector-effect="non-scaling-stroke" class="animate-1"2="133" y1="0" x1="146"/>
+    <line vector-effect="non-scaling-stroke" class="animate-1" y2="479" x2="5" y1="320" x1="194" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" y2="320" x2="196" y1="146" x1="223" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" y2="320" x2="196" y1="274" x1="503" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" y2="291" x2="380" y1="128" x1="477" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" y2="148" x2="223" y1="12" x1="136" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" y2="145" x2="226" y1="23" x1="343" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" y2="130" x2="476" y1="0" x1="444" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" y2="132" x2="477" y1="131" x1="637" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" y2="132" x2="473" y1="3" x1="605" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" x2="500" y1="386" x1="638" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" x2="496" y1="197" x1="640" />
+    <line vector-effect="non-scaling-stroke" class="animate-1"="106" y1="13" x1="134" />
+    <line vector-effect="non-scaling-stroke" class="animate-1"="339" y1="22" x1="340" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" 2="343" y1="1" x1="400" />
+    <line vector-effect="non-scaling-stroke" class="animate-1" 2="133" y1="0" x1="146" />
 </svg>
-
-<div  id="library-holder" class="row">
+<div id="library-holder" class="row">
     <div class="holder-3d" ng-class="{'col-xs-12': !library.writing, 'col-md-4 hidden-xs hidden-sm': library.writing}" ng-click="library.writing = false">
         <div class="transition-all" ng-class="{'left-door': library.writing}">
             <div class="text-muted" ng-if="stories.length && !library.bookmark">
@@ -25,7 +24,6 @@
                     <div class="animated fadeInDown text-right" style="animation-delay: 1.5s;">Make choices.</div>
                 </h2>
             </div>
-
             <div class="animated slideInDown" ng-if="library.bookmark">
                 <h2>
             <div class="text-danger pull-right" ng-click="removeBookmark(); $event.stopPropagation()">
@@ -36,6 +34,7 @@
         Bookmark:</h2>
                 <a ng-href="/#!/page/{{library.bookmark.id}}">
                     <div class="story-card">
+                        <span class="heart hearted pull-right" ng-if="hearts.indexOf(library.bookmark.id) > -1"><i class="fa fa-heart"></i></span>
                         <div class="title">{{library.bookmark.action}}</div>
                         <p>From: {{library.bookmark.story.action}}</p>
                         <div ng-if="library.bookmark.viewCount != undefined" class="label label-default label-reads">
@@ -51,9 +50,15 @@
                 <br/>
                 <br/>
             </div>
-
             <div ng-if="stories.length">
-                <h1><span class="fa fa-book"></span> Library</h1>
+                <h1>
+                    <div class="btn btn-info pull-right" ng-class="{'btn-warning': library.writing}" ng-click="library.writing = !library.writing; $event.stopPropagation()">
+                        <i class="fa fa-plus"></i>
+                    </div>
+                    <span class="fa fa-book"></span> Library
+
+
+                </h1>
                 <br/>
                 <h3> Popular </h3>
                 <div class="row">
@@ -61,6 +66,7 @@
                         <div ng-repeat="story in popularStories = (stories | orderBy:'viewCount':true | limitTo:params.sectionLength)" ng-class="{'hidden-md hidden-lg': (($index % 2) == 1)}">
                             <a ng-href="/#!/page/{{story.id}}">
                                 <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
+                                    <span class="heart hearted pull-right" ng-if="hearts.indexOf(story.id) > -1"><i class="fa fa-heart"></i></span>
                                     <div class="title">{{story.action}}</div>
                                     <br/>
                                     <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
@@ -79,6 +85,7 @@
                         <div ng-repeat="story in popularStories" ng-class="{'hidden-md hidden-lg': (($index % 2) == 0)}">
                             <a ng-href="/#!/page/{{story.id}}">
                                 <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
+                                    <span class="heart hearted pull-right" ng-if="hearts.indexOf(story.id) > -1"><i class="fa fa-heart"></i></span>
                                     <div class="title">{{story.action}}</div>
                                     <br/>
                                     <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
@@ -102,6 +109,7 @@
                         <div ng-repeat="story in newStories = (stories | orderBy:'creationDate':true | limitTo:params.sectionLength)" ng-class="{'hidden-md hidden-lg': (($index % 2) == 1)}">
                             <a ng-href="/#!/page/{{story.id}}">
                                 <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
+                                    <span class="heart hearted pull-right" ng-if="hearts.indexOf(story.id) > -1"><i class="fa fa-heart"></i></span>
                                     <div class="title">{{story.action}}</div>
                                     <br/>
                                     <!-- <span>{{story.creationDate | date:'short'}}</span> -->
@@ -121,6 +129,7 @@
                         <div ng-repeat="story in newStories" ng-class="{'hidden-md hidden-lg': (($index % 2) == 0)}">
                             <a ng-href="/#!/page/{{story.id}}">
                                 <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
+                                    <span class="heart hearted pull-right" ng-if="hearts.indexOf(story.id) > -1"><i class="fa fa-heart"></i></span>
                                     <div class="title">{{story.action}}</div>
                                     <br/>
                                     <!-- <span>{{story.creationDate | date:'short'}}</span> -->
@@ -150,6 +159,7 @@
                                             <i class="fa fa-book page-icon" ng-if="!story.parent"></i>
                                             <i class="fa fa-map-signs page-icon" ng-if="story.parent"></i>
                                         </h3>
+                                        <span class="heart hearted pull-right" ng-if="hearts.indexOf(story.id) > -1"><i class="fa fa-heart"></i></span>
                                         <div class="title">{{story.action}}</div>
                                         <br/>
                                         <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
@@ -165,13 +175,14 @@
                             </div>
                         </div>
                         <div class="col-md-6 hidden-xs hidden-sm">
-                            <div ng-repeat="story in myPages" ng-class="{'hidden-md hidden-lg': (($index % 2) == 0)}">
+                            <div ng-repeat="story in myPages | orderBy: 'creationDate'" ng-class="{'hidden-md hidden-lg': (($index % 2) == 0)}">
                                 <a ng-href="/#!/page/{{story.id}}">
                                     <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
                                         <h3 class="pull-left text-muted">
                                             <i class="fa fa-book page-icon" ng-if="!story.parent"></i>
                                             <i class="fa fa-map-signs page-icon" ng-if="story.parent"></i>
                                         </h3>
+                                        <span class="heart hearted pull-right" ng-if="hearts.indexOf(story.id) > -1"><i class="fa fa-heart"></i></span>
                                         <div class="title">{{story.action}}</div>
                                         <br/>
                                         <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
@@ -188,7 +199,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div ng-if="randomStories.length">
                     <br/>
                     <br/>
@@ -198,6 +208,7 @@
                             <div ng-repeat="story in randomStories" ng-class="{'hidden-md hidden-lg': (($index % 2) == 1)}">
                                 <a ng-href="/#!/page/{{story.id}}">
                                     <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
+                                        <span class="heart hearted pull-right" ng-if="hearts.indexOf(story.id) > -1"><i class="fa fa-heart"></i></span>
                                         <div class="title">{{story.action}}</div>
                                         <br/>
                                         <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
@@ -216,6 +227,7 @@
                             <div ng-repeat="story in randomStories" ng-class="{'hidden-md hidden-lg': (($index % 2) == 0)}">
                                 <a ng-href="/#!/page/{{story.id}}">
                                     <div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
+                                        <span class="heart hearted pull-right" ng-if="hearts.indexOf(story.id) > -1"><i class="fa fa-heart"></i></span>
                                         <div class="title">{{story.action}}</div>
                                         <br/>
                                         <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
@@ -237,7 +249,7 @@
             <br/>
             <div ng-if="!stories.length" class="text-center">
                 <br/>
-                <img src="images/loading.svg"/>
+                <img src="images/loading.svg" />
                 <h2 class="text-muted">Loading&hellip;</h2>
             </div>
         </div>
@@ -248,7 +260,7 @@
                 <i class="fa fa-ban button-icon" aria-hidden="true"></i>
                 Hide</span>
                     <span ng-show="!library.writing">
-                <i class="fa fa-pencil button-icon" aria-hidden="true"></i>
+                <i class="fa fa-plus button-icon" aria-hidden="true"></i>
                 </span> New Story</div>
             </div>
             <div class="hidden-xs col-sm-6 col-md-8">&nbsp;</div>
