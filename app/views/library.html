@@ -60,7 +60,7 @@
 
                 </h1>
                 <br/>
-                <h3> Popular </h3>
+                <h3> Popular Stories </h3>
                 <div class="row">
                     <div class="col-md-6">
                         <div ng-repeat="story in popularStories = (stories | orderBy:'viewCount':true | limitTo:params.sectionLength)" ng-class="{'hidden-md hidden-lg': (($index % 2) == 1)}">
@@ -149,7 +149,7 @@
                 <div ng-if="myPages.length">
                     <br/>
                     <br/>
-                    <h3> My Pages </h3>
+                    <h3> My Contributions </h3>
                     <div class="row">
                         <div class="col-md-6">
                             <div ng-repeat="story in myPages | orderBy: 'creationDate'" ng-class="{'hidden-md hidden-lg': (($index % 2) == 1)}">
@@ -202,7 +202,7 @@
                 <div ng-if="randomStories.length">
                     <br/>
                     <br/>
-                    <h3> Random </h3>
+                    <h3> Random Stories </h3>
                     <div class="row">
                         <div class="col-md-6">
                             <div ng-repeat="story in randomStories" ng-class="{'hidden-md hidden-lg': (($index % 2) == 1)}">

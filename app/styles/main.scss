@@ -8,9 +8,12 @@ $accent: red;
 $wells: #fff;
 $fonts: black;
 body {
-    background: $background;
     overflow-x: hidden;
     max-width: 100vw;
+    background: $background;
+    background: -moz-linear-gradient(left, #e8e8e8 38%, #dddddd 100%);
+    background: -webkit-linear-gradient(left, #e8e8e8 38%, #dddddd 100%);
+    background: linear-gradient(to right, #e8e8e8 38%, #dddddd 100%);
 }
 
 a:hover {
@@ -86,9 +89,6 @@ a:hover {
     * {
         pointer-events: none;
     }
-    .story-card {
-        box-shadow: none !important;
-    }
 }
 
 h1,
@@ -106,7 +106,6 @@ h3,
     margin-bottom: 5px;
     border: 1px solid darken($background, 20%);
     border-bottom: 3px solid darken($background, 15%);
-    box-shadow: 0 2px 4px -1px darken($background, 30%);
     border-radius: 5px;
     text-align: center;
     animation-duration: 500ms;
@@ -128,7 +127,7 @@ h3,
         }
     }
     .title {
-        font-family: 'Covered By Your Grace', Arial, sans-serif;
+        font-family: 'Patrick Hand', Arial, sans-serif;
         font-size: 1.9em;
         text-decoration: none !important;
         &:first-letter {
@@ -191,12 +190,12 @@ textarea.ng-invalid-maxlength {
     z-index: 0;
     top: 0;
     left: 0;
-    background: $background;
+    /*background: $background;*/
     pointer-events: none;
     transform: translateZ(-2000px);
     line {
         stroke-width: 5px;
-        stroke: lighten($background, 30%);
+        stroke: lighten($background, 80%);
         stroke-dasharray: 150 350 150 225 125 1000;
         animation: moving 10s linear infinite;
     }
@@ -410,4 +409,46 @@ textarea.ng-invalid-maxlength {
         top: 1em;
         height: 3em;
     }
+}
+
+.wait-vertical {
+    animation: vertical_1277 6s ease infinite;
+    transform-origin: 50% 50%;
+}
+
+@keyframes vertical_1277 {
+    0% {
+        transform: translate(0, -9px)
+    }
+    5.55556% {
+        transform: translate(0, 9px)
+    }
+    11.11111% {
+        transform: translate(0, -9px)
+    }
+    16.66667% {
+        transform: translate(0, 9px)
+    }
+    22.22222% {
+        transform: translate(0, -9px)
+    }
+    27.77778% {
+        transform: translate(0, 9px)
+    }
+    30.55556% {
+        transform: translate(0, 0)
+    }
+    100% {
+        transform: translate(0, 0)
+    }
+}
+
+.nudge-up {
+    position: relative;
+    top: -10px;
+}
+
+.nudge-front {
+    position: relative;
+    z-index: 10;
 }

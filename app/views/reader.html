@@ -44,7 +44,9 @@
                             </div>
                         </div>
                         <div ng-if="!page.choices.length">
-                            <h2>The Story Ends Here&hellip;</h2>
+                            <h2>The Story Ends Here&hellip; 
+                                <h1 class="pull-right hidden-xs nudge-front"><i class="fa fa-arrow-down wait-vertical text-info"></i></h1>
+                            </h2>
                         </div>
                     </div>
                     <div ng-if="rCtrl.adding">
@@ -57,6 +59,7 @@
                     <br/>
                     <div class="animated fadeIn">
                         <div class="row">
+                            <div class="col-lg-3 hidden-xs hidden-sm hidden-md">&nbsp;</div>
                             <div class="col-sm-4" ng-class="{'col-sm-4 col-lg-3': !rCtrl.adding, 'col-xs-12': rCtrl.adding}">
                                 <button class="btn btn-primary btn-block" ng-click="p()">
                                     <i class="fa fa-repeat button-icon" aria-hidden="true"></i>Read Again</button>
@@ -70,7 +73,7 @@
                                 </button>
                             </div>
                             <div class="col-sm-4" ng-class="{'col-sm-4 col-lg-3': !rCtrl.adding, 'col-xs-12': rCtrl.adding}">
-                                <button ng-disabled="page.choices.length >= rCtrl.params.choiceLimit" class="btn btn-info btn-block" ng-class="{'btn-warning': rCtrl.adding}" ng-click="rCtrl.adding = !rCtrl.adding">
+                                <button ng-disabled="page.choices.length >= rCtrl.params.choiceLimit" class="btn btn-info btn-block" ng-class="{'btn-warning': rCtrl.adding, 'btn-lg': !page.choices.length, 'nudge-up': !rCtrl.adding && !page.choices.length}" ng-click="rCtrl.adding = !rCtrl.adding">
                                     <span ng-if="rCtrl.params.choiceLimit - page.choices.length > 0"> 
                                     <div class="label pull-right">
                                         <ng-pluralize count="rCtrl.params.choiceLimit - page.choices.length" when="{0: 'No more choices', 1: '1 left', other: '{} left'}"></ng-pluralize></div>
