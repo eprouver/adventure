@@ -31,6 +31,7 @@ module.exports = function(config) {
       'bower_components/firebaseui/dist/firebaseui.js',
       'bower_components/angular-local-storage/dist/angular-local-storage.js',
       'bower_components/socialshares/dist/socialshares.js',
+      'bower_components/d3/d3.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

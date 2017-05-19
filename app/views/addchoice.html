@@ -1,69 +1,174 @@
 <div id="add-choice">
     <div ng-if="user.loaded">
         <div class="hidden-lg hidden-md">
-            <br/><br/>
+            <br/>
+            <br/>
         </div>
-        <h1 class="btn btn-danger pull-right" ng-click="$root.$broadcast('addChoice:close')">
+        <h1 class="btn btn-danger pull-right" ng-click="$root.$broadcast('addChoice:close'); acCtrl.writing = 0;">
             <i class="fa fa-close"></i>
         </h1>
         <h1 ng-if="!story">Add Choice</h1>
         <h1 ng-if="story">New Story</h1>
         <br/>
         <form class="form" ng-submit="addChoice()">
-            <div class="form-group">
-                <label class="pull-right" ng-class="{'text-info': acCtrl.action.length < params.maxTitle, 'text-warning': acCtrl.action.length == params.maxTitle, 'hide': !acCtrl.action.length}">{{acCtrl.action.length || 0}} / {{params.maxTitle}}</label>
-                <label ng-if="!story">Choice Text</label>
-                <label ng-if="story">Title</label>
-                <input required ng-model="acCtrl.action" class="form-control" type="text" ng-trim="false" ng-maxlength="params.maxTitle" />
-            </div>
-            <div class="form-group">
-                <label class="pull-right" ng-class="{'text-info': acCtrl.text.length < params.maxPage, 'text-warning': acCtrl.text.length == params.maxPage, 'hide': !acCtrl.text.length}">{{acCtrl.text.length || 0}} / {{params.maxPage}}</label>
-                <label ng-if="!story">What Happens Next?</label>
-                <label ng-if="story">First Page</label>
-                <textarea required ng-model="acCtrl.text" class="form-control" rows="6" ng-maxlength="params.maxPage"></textarea>
-            </div>
-            <div class="form-group">
-                <label>
-                    <input type="checkbox" ng-model="acCtrl.endMeme" /> End on a meme?
-                </label>
-            </div>
-            <div class="form-group meme-maker" ng-if="acCtrl.endMeme">
-                <div class="row text-center">
-                    <div style="height: 30vh; overflow-y:scroll" ng-class="{ 'col-xs-6' : acCtrl.background, 'col-xs-12': !acCtrl.background}">
-                        <h4>Select Background...</h4>
-                        <div class="thumbnail col-xs-4 col-sm-3 col-md-3 col-lg-2 meme-thumb-holder" ng-click="acCtrl.loadBackground(img)" ng-repeat="img in acCtrl.memes">
-                            <div class="img img-responsive meme-thumb" ng-style="{background: 'url(\'images/meme_tn/'+img+'_tn.jpg\') center center no-repeat'} ">
-                                <!--                                 <div class="caption">
-                                    <p>{{img}}</p>
-                                </div> -->
-                            </div>
-                        </div>
+            <div id="review-text" class="row">
+                <div ng-show="acCtrl.writing == 4" class="col-xs-1">
+                    <div class="vertical-text text-primary"> Review Text </div>
+                </div>
+                <div ng-class="{'col-xs-12': acCtrl.writing < 4, 'col-xs-11 animated slideInRight': acCtrl.writing == 4}">
+                    <div class="form-group" ng-if="acCtrl.writing == 0 || acCtrl.writing == 4">
+                        <label class="pull-right" ng-class="{'text-info': acCtrl.action.length < params.maxTitle, 'text-warning': acCtrl.action.length == params.maxTitle, 'hide': !acCtrl.action.length}">{{acCtrl.action.length || 0}} / {{params.maxTitle}}</label>
+                        <label ng-if="!story">Choice Text</label>
+                        <label ng-if="story">Title</label>
+                        <input placeholder="{{story? 'One Captivating Title': 'The Action of the Main Character - e.g. Remove Shoe'}}" required ng-model="acCtrl.action" class="form-control" type="text" ng-trim="false" ng-maxlength="params.maxTitle" />
                     </div>
-                    <div ng-class="{ 'col-xs-6' : acCtrl.background, 'hide': !acCtrl.background}">
-                        <div ng-if="acCtrl.background">
-                            <div class="form-group" ng-if="!pending && acCtrl.background">
-                                <input class="form-control" type="text" placeholder="Top Text" ng-maxlength="params.maxTitle" ng-model="acCtrl.topMeme" />
-                            </div>
-                            <div class="meme-viewer animated fadeIn">
-                            <div class="meme-holder" ng-class="{'thumbnail': !pending && acCtrl.background}">
-                                <fit-text data-value="acCtrl.topMeme" class="meme-text meme-text-top"></fit-text>
-                                <img class="img-responsive" ng-src="{{acCtrl.background}}" />
-                                <fit-text data-value="acCtrl.bottomMeme" class="meme-text meme-text-bottom"></fit-text>
-                            </div>
-                        </div>
-                            <div class="form-group" ng-if="!pending && acCtrl.background">
-                                <input class="form-control" type="text" placeholder="Bottom Text" ng-maxlength="params.maxTitle" ng-model="acCtrl.bottomMeme" />
-                            </div>
-                        </div>
-                        <div ng-if="!acCtrl.background" class="well">
-                            <h4>Select an Image&hellip;</h4>
-                        </div>
+                    <div class="form-group" ng-if="acCtrl.writing == 1 || acCtrl.writing == 4">
+                        <label class="pull-right" ng-class="{'text-info': acCtrl.first.length < params.maxPage, 'text-warning': acCtrl.first.length == params.maxPage, 'hide': !acCtrl.first.length}">{{acCtrl.first.length || 0}} / {{params.maxPage}}</label>
+                        <label ng-if="story">Describe the situation of the main character. Who are <i>you</i> in this story?</label>
+                        <label ng-if="!story">What happened as a result of this action?</label>
+                        <textarea placeholder="{{story? 'You are a...': 'You remove your shoe. Then ...' }}" required ng-model="acCtrl.first" class="form-control" rows="3" ng-maxlength="params.maxPage"></textarea>
+                    </div>
+                    <div class="form-group" ng-if="acCtrl.writing == 2 || acCtrl.writing == 4">
+                        <label class="pull-right" ng-class="{'text-info': acCtrl.second.length < params.maxPage, 'text-warning': acCtrl.second.length == params.maxPage, 'hide': !acCtrl.second.length}">{{acCtrl.second.length || 0}} / {{params.maxPage}}</label>
+                        <label ng-if="story">What are the Main Character's goals?</label>
+                        <label ng-if="!story">Advance the plot or show growth in the characters / relationships.</label>
+                        <textarea placeholder="{{story? 'You want to...': 'Now you / they feel... and something happens.'}} " required ng-model="acCtrl.second" class="form-control" rows="3" ng-maxlength="params.maxPage"></textarea>
+                    </div>
+                    <div class="form-group" ng-if="acCtrl.writing == 3 || acCtrl.writing == 4">
+                        <label class="pull-right" ng-class="{'text-info': acCtrl.third.length < params.maxPage, 'text-warning': acCtrl.third.length == params.maxPage, 'hide': !acCtrl.third.length}">{{acCtrl.third.length || 0}} / {{params.maxPage}}</label>
+                        <label ng-if="story">What is the first descision the Main Character must make?</label>
+                        <label ng-if="!story">What is the next descision the Main Character must make?</label>
+                        <textarea placeholder="End by asking an action question e.g. 'What will you do ... ?' " required ng-model="acCtrl.third" class="form-control" rows="3" ng-maxlength="params.maxPage"></textarea>
                     </div>
                 </div>
             </div>
-            <button ng-disabled="sending" type="submit" class="btn btn-lg btn-success btn-block">
-                <i class="fa fa-plus button-icon" aria-hidden="true"></i> Add Choice
-            </button>
+            <div ng-if="acCtrl.writing < 4">
+                <div class="btn btn-success btn-block" ng-click="acCtrl.writing = acCtrl.writing + 1">
+                    <i class="fa fa-chevron-right button-icon"></i> Continue
+                </div>
+            </div>
+            <div ng-show="acCtrl.writing < 4">
+                <br/>
+                <div class="progress">
+                    <div class="progress-bar" ng-style="{width: ((acCtrl.writing / 4) * 100) + '%'}"></div>
+                </div>
+                <br/>
+            </div>
+            <div ng-if="acCtrl.writing == 4">
+                <div class="form-group">
+                    <div ng-if="story">
+                        <label>Add Goals:</label>
+                        <label class="pull-right text-info">
+                            {{ acCtrl.goals.length}} / {{params.maxGoals}}
+                        </label>
+                        <div class="row" ng-repeat="goal in acCtrl.goals">
+                            <div class="col-xs-7">
+                                <input type="text" class="form-control" placeholder="Goal Name" ng-model="goal.name" />
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="number" class="form-control" placeholder="Target Value" ng-model="goal.value" />
+                            </div>
+                            <div class="col-xs-1">
+                                <div class="btn btn-danger" ng-click="acCtrl.goals.splice($index,1)"><span class="fa fa-close"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7">&nbsp;</div>
+                            <div class="col-xs-5">
+                                <div class="btn btn-success btn-block" ng-click="acCtrl.goals.push({})">
+                                    Add Goal
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="!story && acCtrl.goals">
+                        <label>Goals Point Changes:</label>
+                        <div class="text-center row" ng-repeat="goal in acCtrl.goals">
+                            <div class="col-xs-3">
+                                <h4 class="text-success" ng-if="goal.value > 0">
+                            <i class="fa fa-plus "></i> {{goal.value}}</h4>
+                                <h4 class="text-danger" ng-if="goal.value < 0">
+                            {{goal.value}}</h4>
+                                <h4 ng-if="goal.value == 0" class="text-muted">
+                                        (same)
+                           </h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <h4>{{goal.name}}</h4>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="btn btn-success btn-sm" ng-click="goal.value = goal.value + 1">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                                <div class="btn btn-danger btn-sm" ng-click="goal.value = goal.value - 1">
+                                    <i class="fa fa-minus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" ng-model="acCtrl.endMeme" /> End on a meme?
+                    </label>
+                </div>
+                <div class="form-group meme-maker" ng-if="acCtrl.endMeme">
+                    <div class="row text-center">
+                        <div style="height: 30vh; overflow-y:scroll" ng-class="{ 'col-xs-6' : acCtrl.background, 'col-xs-12': !acCtrl.background}">
+                            <h4>Select Background...</h4>
+                            <div class="thumbnail col-xs-4 col-sm-3 col-md-3 col-lg-2 meme-thumb-holder" ng-click="acCtrl.loadBackground(img)" ng-repeat="img in acCtrl.memes">
+                                <div class="img img-responsive meme-thumb" ng-style="{background: 'url(\'images/meme_tn/'+img+'_tn.jpg\') center center no-repeat'} ">
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-class="{ 'col-xs-6' : acCtrl.background, 'hide': !acCtrl.background}">
+                            <div ng-if="acCtrl.background">
+                                <div class="form-group" ng-if="!pending && acCtrl.background">
+                                    <input class="form-control" type="text" placeholder="Top Text" ng-maxlength="params.maxTitle" ng-model="acCtrl.topMeme" />
+                                </div>
+                                <div class="meme-viewer animated fadeIn">
+                                    <div class="meme-holder" ng-class="{'thumbnail': !pending && acCtrl.background}">
+                                        <fit-text data-value="acCtrl.topMeme" class="meme-text meme-text-top"></fit-text>
+                                        <img class="img-responsive" ng-src="{{acCtrl.background}}" />
+                                        <fit-text data-value="acCtrl.bottomMeme" class="meme-text meme-text-bottom"></fit-text>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-if="!pending && acCtrl.background">
+                                    <input class="form-control" type="text" placeholder="Bottom Text" ng-maxlength="params.maxTitle" ng-model="acCtrl.bottomMeme" />
+                                </div>
+                            </div>
+                            <div ng-if="!acCtrl.background" class="well">
+                                <h4>Select an Image&hellip;</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group hide" ng-if="!story">
+                    <label>
+                        Is this "The End"?
+                    </label>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            &nbsp;
+                        </div>
+                        <div class="col-xs-4">
+                            <label class="btn btn-danger btn-block" ng-class="{'active': acCtrl.theEnd == 'true'}">
+                                <input class="hide" type="radio" name="theEnd" value="true" ng-model="acCtrl.theEnd" />
+                                The End!
+                            </label>
+                        </div>
+                        <div class="col-xs-4">
+                            <label class="btn btn-success btn-block" ng-class="{'active': acCtrl.theEnd == 'false'}">
+                                <input class="hide" type="radio" name="theEnd" value="false" ng-model="acCtrl.theEnd" />
+                                The Story Continues
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button ng-disabled="sending" type="submit" class="btn btn-lg btn-success btn-block">
+                    <i class="fa fa-plus button-icon" aria-hidden="true"></i> Add Choice
+                </button>
+            </div>
         </form>
     </div>
     <div ng-if="!user.loaded">

@@ -1,8 +1,8 @@
-<div>
+<div ng-class="{'hide' : !page.text.length}">
     <div class="row">
         <div ng-class="{'col-md-12': !rCtrl.adding, 'col-md-4': rCtrl.adding}">
             <div id="reader" class="animated zoomIn">
-                <div id="o-parent">
+                <div id="o-parent" ng-if="$root.showReader">
                     <div id="o" class="animated">&nbsp;</div>
                     <br/>
                     <br/>
@@ -17,8 +17,20 @@
                             Speed: {{$root.wordSpeed}}
                         </div>
                     </div>
+                    <div>
+                        <a ng-click="setReader(false)">Turn Off Reader</a>
+                    </div>
                 </div>
-                <div id="meme-viewer" class="meme-viewer animated" ng-class="{'fadeInUp': !rCtrl.choosing, 'fadeOutUp': rCtrl.choosing}" ng-if="readingMeme" ng-click="readingFinished()">
+                <div ng-if="!$root.showReader && !readingMeme">
+                    <br/>
+                    <p class="well">{{page.text}}</p>
+                    <br/>
+                    <div>
+                        <a ng-click="setReader(true)">Turn On Reader</a>
+                        <div class="pull-right btn btn-success" ng-click="readingFinished()">Continue&hellip;</div>
+                    </div>
+                </div>
+                <div id="meme-viewer" class="meme-viewer animated" ng-class="{'fadeInUp': !rCtrl.choosing, 'fadeOutUp': rCtrl.choosing}" ng-if="readingMeme" ng-click="goToChoices()">
                     <div class="thumbnail meme-holder" ng-if="page.memeLoaded">
                         <fit-text data-value="page.topMeme" class="meme-text meme-text-top"></fit-text>
                         <img class="img-responsive" ng-src="{{page.memeBackground}}" />
@@ -40,11 +52,11 @@
                                 <a href="/#!/page/{{c.id}}" ng-style="{animationDelay: ($index + 1) * 100 + 'ms'}" class="btn btn-lg btn-block btn-success animated zoomInLeft" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 != 0"> {{c.action}} </a>
                             </div>
                             <div class="col-sm-6 option-holder">
-                                <a href="/#!/page/{{c.id}}"  ng-style="{animationDelay: ($index + 1) * 150 + 'ms'}" class="btn btn-lg btn-block btn-success animated zoomInRight" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 == 0"> {{c.action}} </a>
+                                <a href="/#!/page/{{c.id}}" ng-style="{animationDelay: ($index + 1) * 150 + 'ms'}" class="btn btn-lg btn-block btn-success animated zoomInRight" ng-repeat="c in page.choices track by $index" ng-if="($index + 1) % 2 == 0"> {{c.action}} </a>
                             </div>
                         </div>
                         <div ng-if="!page.choices.length">
-                            <h2>The Story Ends Here&hellip; 
+                            <h2>The story ends here&hellip; <span ng-if="main.scores"><br/>If your goal meters are not full, click <span class="text-info">Add Choice</span> and help finish the story.</span>
                                 <h1 class="pull-right hidden-xs nudge-front"><i class="fa fa-arrow-down wait-vertical text-info"></i></h1>
                             </h2>
                         </div>
@@ -65,10 +77,10 @@
                                     <i class="fa fa-repeat button-icon" aria-hidden="true"></i>Read Again</button>
                             </div>
                             <div class="col-sm-4" ng-class="{'col-sm-4 col-lg-3': !rCtrl.adding, 'col-xs-12': rCtrl.adding}">
-                                <button class="btn btn-standard btn-block" ng-class="{'active': rCtrl.bookmark == page.id}" ng-click="rCtrl.addBookmark(rCtrl.bookmark == page.id)">
-                                    <span ng-show="rCtrl.bookmark == page.id"> 
+                                <button class="btn btn-standard btn-block" ng-class="{'active': rCtrl.bookmark.id == page.id}" ng-click="rCtrl.addBookmark(rCtrl.bookmark.id == page.id)">
+                                    <span ng-show="rCtrl.bookmark.id == page.id"> 
                                         <i class="fa fa-ban button-icon"></i> Remove Bookmark</span>
-                                    <span ng-show="rCtrl.bookmark != page.id">
+                                    <span ng-show="rCtrl.bookmark.id != page.id">
                                         <i class="fa fa-bookmark button-icon"></i> Save Spot</span>
                                 </button>
                             </div>
@@ -95,6 +107,7 @@
                     <div style="clear:both"></div>
                 </div>
             </div>
+            <br/>
         </div>
         <div ng-show="rCtrl.adding" class="col-md-8">
             <add-choice class="animated fadeInRight"></add-choice>

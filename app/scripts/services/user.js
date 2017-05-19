@@ -120,6 +120,9 @@ angular.module('adventureApp')
                     myUser.hearts.push(id);
                 }
                 if (myUser.loaded) {
+                    myUser.hearts = myUser.hearts.filter(function(v){
+                        return v;
+                    })
                     database.ref('userData/' + myUser.uid + '/hearts').set(myUser.hearts);
                 }
             }

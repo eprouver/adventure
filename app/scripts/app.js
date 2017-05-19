@@ -36,7 +36,8 @@ angular
             });
     })
     .run(['$rootScope', 'user', function($rootScope, user) {
-        $rootScope.wordSpeed = 500;
+        $rootScope.wordSpeed = 300;
+        $rootScope.showReader = true;
         user.start();
     }])
     .config(function(localStorageServiceProvider) {

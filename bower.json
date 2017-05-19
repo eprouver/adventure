@@ -12,7 +12,8 @@
     "animate.css": "^3.5.2",
     "components-font-awesome": "^4.7.0",
     "angular-local-storage": "^0.5.2",
-    "socialshares": "^2.0.4"
+    "socialshares": "^2.0.4",
+    "d3": "^4.9.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

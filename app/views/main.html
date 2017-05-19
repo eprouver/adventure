@@ -1,23 +1,37 @@
 <h3>
-    <a href="/#!/library" class="pull-right">
+    <a href="/#!/library" >
         <span class="fa fa-book"></span>
     </a>
-    <span ng-click="main.heartPage()">
+    <span ng-click="main.heartPage()" class="pull-right">
     <heart-me data-hearted="main.hearted" data-animate="main.ready"></heart-me>
 </span>
 </h3>
 <reader></reader>
 <br/>
 <br/>
-<div id="sharing-holder" class="socialshares hide" data-icononly>
-    Share the Story - help it grow:
-    <br/>
-    <div class="socialshares-twitter animated bounceIn" style="animation-delay: 200ms"></div>
-    <!--     <div class="socialshares-facebook animated bounceIn" style="animation-delay: 400ms"></div>
+<div ng-if="main.scores">
+    <h4>Goal Meters</h4>
+    <div class="row">
+        <div class="col-md-8 col-sm-6">
+            <div class="row">
+                <div ng-repeat="g in main.scores" class="col-xs-3 col-md-2 col-lg-2 inline-col text-center">
+                    <circle-progress data-color="#449d44" data-value="(g.current / g.goal) * 100" data-display-value="g.current"></circle-progress>
+                    <label>{{g.name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div id="sharing-holder" class="socialshares hide" data-icononly>
+                <h4>Share the story - Help it grow:</h4>
+                <div class="socialshares-twitter animated bounceIn" style="animation-delay: 200ms"></div>
+                <!--     <div class="socialshares-facebook animated bounceIn" style="animation-delay: 400ms"></div>
  -->
-    <div class="socialshares-email animated bounceIn" style="animation-delay: 600ms"></div>
-    <div class="socialshares-more animated bounceIn" style="animation-delay: 800ms"></div>
-    <!-- Other buttons here... -->
+                <div class="socialshares-email animated bounceIn" style="animation-delay: 600ms"></div>
+                <div class="socialshares-more animated bounceIn" style="animation-delay: 800ms"></div>
+                <!-- Other buttons here... -->
+            </div>
+        </div>
+    </div>
 </div>
 <br/>
 <br/>
@@ -26,12 +40,8 @@
 <br/>
 <br/>
 <br/>
-<br/>
-<br/>
-<br/>
-<br/>
 <!-- <a ng-if="page && page.id !== page.story" href="/#!/page/{{page.story}}">Start Over</a> -->
-<div style="position:fixed; bottom: 10px; left: 0; width: 100vw;">
+<div style="bottom: 10px; left: 0; width: 100vw;">
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- Bottom Page -->
     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7699323664930736" data-ad-slot="1951703401" data-ad-format="auto"></ins>

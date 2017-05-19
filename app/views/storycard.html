@@ -1,0 +1,26 @@
+<div class="animated fadeInDown story-card" ng-style="{animationDelay: $index * 200 + 'ms'}">
+    <span class="heart hearted pull-right" ng-if="hearts.indexOf(story.id) > -1"><i class="fa fa-heart"></i></span>
+    <div class="title">{{story.action}}</div>
+    <br/>
+    <div ng-if="story.viewCount != undefined" class="label label-default label-reads">
+        <div class="text-primary">
+            <strong>{{story.viewCount | number}}</strong>
+        </div>
+        <div>
+            <ng-pluralize count="story.viewCount" when="{0: 'Reads', 1: 'Read', other: 'Reads'}"></ng-pluralize>
+        </div>
+    </div>
+    <div ng-if="story.bookSize != undefined" class="label label-default label-choices">
+        <div ng-if="story.bookSize <= 1">
+            <div class="badge">New!</div>
+        </div>
+        <div ng-if="story.bookSize > 1">
+            <div class="text-primary">
+                <strong>{{ (story.bookSize - 1) | number}}</strong>
+            </div>
+            <ng-pluralize ng-class="{'text-danger': story.bookSize == 1}" count="story.bookSize - 1" when="{0: 'Choices', 1: 'Choice', other: 'Choices'}"></ng-pluralize>
+        </div>
+    </div>
+    <div class="curtain" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
+    <div class="curtain curtain-after" ng-style="{animationDelay: (($index * 200) + 500) + 'ms'}"></div>
+</div>

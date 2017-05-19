@@ -16,6 +16,21 @@ angular.module('adventureApp')
             controller: ['$scope', '$attrs', function($scope, $attrs) {
                 var self = this;
                 $scope.story = $attrs.story;
+
+                if ($scope.story) {
+                    self.goals = [{}];
+                } else {
+                    pages.getPage($scope.page.story).then(function(page) {
+                        if (page.goals) {
+                            self.goals = angular.copy(page.goals).map(function(v) {
+                                v.value = 0;
+                                return v;
+                            })
+                        }
+                    })
+                }
+
+                self.writing = 0;
                 $scope.user = user.getData();
                 self.memes = ["001 - Regret bear",
                     "002 - Confession bear",
@@ -120,7 +135,8 @@ angular.module('adventureApp')
                 ]
                 $scope.params = {
                     maxTitle: 100,
-                    maxPage: 520
+                    maxPage: 200,
+                    maxGoals: 4
                 }
 
                 $scope.$on('user:updated', function() {
@@ -168,17 +184,18 @@ angular.module('adventureApp')
 
                     img.src = "images/memes/" + bkg + ".jpg"
 
-
                 }
 
                 function submitPage(story, parent) {
                     return pages.submitPage(story, parent, {
                         action: self.action,
-                        text: self.text,
+                        text: [self.first, self.second, self.third].join(' '),
                         endMeme: self.endMeme,
                         memeBackground: self.background,
                         topMeme: self.topMeme,
-                        bottomMeme: self.bottomMeme
+                        bottomMeme: self.bottomMeme,
+                        goals: self.goals,
+                        theEnd: self.theEnd
                     }).then(function(res) {
                         if ($scope.rCtrl) {
                             $scope.rCtrl.adding = false;
